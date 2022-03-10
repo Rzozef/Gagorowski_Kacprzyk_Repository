@@ -1,5 +1,10 @@
-﻿################################################################################
-# Ten plik .gitignore został utworzony automatycznie przez Microsoft(R) Visual Studio.
+################################################################################
+# Ten plik .gitignore zosta� utworzony automatycznie przez Microsoft(R) Visual Studio.
 ################################################################################
 
 /.vs
+[Dd]ebug/
+[Rr]elease/
+x64/
+[Bb]in/
+[Oo]bj/
