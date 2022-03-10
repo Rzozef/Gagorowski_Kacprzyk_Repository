@@ -24,5 +24,10 @@ namespace Projekt0
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(HelloFactory.SayHello());
+        }
     }
 }
