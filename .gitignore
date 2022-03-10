@@ -1,5 +1,5 @@
 ################################################################################
-# Ten plik .gitignore zosta≥ utworzony automatycznie przez Microsoft(R) Visual Studio.
+# Ten plik .gitignore zosta≈Ç utworzony automatycznie przez Microsoft(R) Visual Studio.
 ################################################################################
 
 /.vs
@@ -8,3 +8,4 @@
 x64/
 [Bb]in/
 [Oo]bj/
+.suo
