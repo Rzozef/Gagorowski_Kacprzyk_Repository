@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dane", "Dane\Dane.csproj", "{078D2CD6-EB9D-4F2D-BDF1-7774C824435B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logika", "Logika\Logika.csproj", "{622DD914-1465-4D62-9309-0CA9DCEACFC5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{078D2CD6-EB9D-4F2D-BDF1-7774C824435B} = {078D2CD6-EB9D-4F2D-BDF1-7774C824435B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prezentacja", "Prezentacja\Prezentacja.csproj", "{7DB4177F-3F3E-4149-9E31-C844CE8452C4}"
 EndProject
