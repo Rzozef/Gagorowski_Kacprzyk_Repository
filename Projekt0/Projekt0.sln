@@ -12,11 +12,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logika", "Logika\Logika.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Prezentacja", "Prezentacja", "{469AF376-3D68-45DA-B21C-0FC6D644B0AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "View\View.csproj", "{20D7CFE6-BBEF-4E92-9730-34FCDB2933A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View", "View\View.csproj", "{20D7CFE6-BBEF-4E92-9730-34FCDB2933A6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{38EC0154-3E76-4EC8-A55C-111429CD202A} = {38EC0154-3E76-4EC8-A55C-111429CD202A}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{B5A3693D-4821-4467-8A63-49336EBC0DC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{B5A3693D-4821-4467-8A63-49336EBC0DC8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{622DD914-1465-4D62-9309-0CA9DCEACFC5} = {622DD914-1465-4D62-9309-0CA9DCEACFC5}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\ViewModel.csproj", "{38EC0154-3E76-4EC8-A55C-111429CD202A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModel", "ViewModel\ViewModel.csproj", "{38EC0154-3E76-4EC8-A55C-111429CD202A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,13 +1,14 @@
 ﻿using Dane;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace Logika
 {
     public abstract class LogikaAbstractApi
     {
-        public abstract void createBalls(uint count);
+        public abstract void CreateBalls(uint count);
         public static LogikaAbstractApi CreateApi(uint screen_width, uint screen_height)
         {
             return new LogikaApi(screen_width, screen_height);
@@ -22,7 +23,7 @@ namespace Logika
             symulacja = SymulacjaAbstractApi.CreateApi(screen_width, screen_height);
         }
 
-        public override void createBalls(uint count)
+        public override void CreateBalls(uint count)
         {
             Random random = new Random();
             for (uint i = 0; i < count; ++i)
