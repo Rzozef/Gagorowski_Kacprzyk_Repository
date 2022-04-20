@@ -8,6 +8,10 @@ namespace Logika
         public abstract uint screen_width { get; }
         public abstract uint screen_height { get; }
         public abstract void CreateBalls(uint count);
+        public static LogikaAbstractApi CreateApi(uint width, uint height)
+        {
+            return new LogikaApi(width, height);
+        }
     }
     internal class LogikaApi : LogikaAbstractApi
     {   
