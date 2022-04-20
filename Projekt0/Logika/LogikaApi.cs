@@ -8,6 +8,11 @@ namespace Logika
         public abstract uint screen_width { get; }
         public abstract uint screen_height { get; }
         public abstract void CreateBalls(uint count);
+
+        public static LogikaAbstractApi CreateApi(uint width, uint height)
+        {
+            return new LogikaApi(width, height);
+        }
     }
     internal class LogikaApi : LogikaAbstractApi
     {   
@@ -32,10 +37,6 @@ namespace Logika
             Random random = new Random();
             for (uint i = 0; i < count; ++i)
             {
-//przedział losowania ograniczony tak, zeby okrąg nie wyszedł poza ekran
-//przyjmuje ze size to promien a punktem x i y odnosi sie do srodka okregu
-//poki co promien jest staly i wynosi 10
-//trzeba sie zastanowic czy krok 10 wzdluz osi nie jest za duzy(a raczej jest)
                 float random_x = random.Next(10, (int)(screen_width - 10));
                 float random_y = random.Next(10, (int)(screen_height- 10));
 
