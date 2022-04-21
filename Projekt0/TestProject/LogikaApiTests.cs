@@ -7,7 +7,7 @@ namespace Logika
         public class LogikaApiTests
         {
             private LogikaAbstractApi api;
-            private BallsRepositoryAbstract<BallAbstract> balls_copy;
+            private BallsRepositoryApi<BallAbstract> balls_copy;
             [SetUp]
             public void Setup()
             {

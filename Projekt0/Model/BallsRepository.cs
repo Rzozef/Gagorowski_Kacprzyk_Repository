@@ -10,7 +10,7 @@ namespace Prezentacja
 {
     namespace Model
     {
-        internal class BallsRepository<Ball> : AsyncObservableCollection<Ball>
+        internal class BallsRepository<BallAbstract> : AsyncObservableCollection<BallAbstract>
         {
 
             public void RegisterPropertyChanged(INotifyCollectionChanged item)

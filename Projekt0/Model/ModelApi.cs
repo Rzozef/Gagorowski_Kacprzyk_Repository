@@ -39,7 +39,7 @@ namespace Prezentacja
                 foreach (var b in logicBalls)
                 {
                     var o = b;
-                    _balls.Add(new Ball(ref o));
+                    _balls.Add(BallAbstract.CreateBall(ref o));
                 }
                 _balls.RegisterPropertyChanged(_logic.GetBalls());
 
