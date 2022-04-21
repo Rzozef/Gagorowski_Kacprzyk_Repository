@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Text;
 using Logika;
 
@@ -17,18 +18,18 @@ namespace Model
         private Logika.Ball _parent;
         public override float BallX
         {
-            get => _parent.x;
+            get => _parent.X;
         }
         public override float BallY
         {
-            get => _parent.y;
+            get => _parent.Y;
         }
         public override float BallSize
         {
-            get => _parent.size;
+            get => _parent.Size;
         }
 
-        public Ball(Logika.Ball parent)
+        public Ball(ref Logika.Ball parent)
         {
             _parent = parent;
         }
@@ -55,16 +56,25 @@ namespace Model
         {
             _logic.CreateBalls(count);
             _balls.Clear();
-            var convertedBalls = _logic.GetBalls().ConvertAll(ball => new Ball(ball));
-            foreach (var ball in convertedBalls)
+            //var convertedBalls = _logic.GetBalls().ConvertAll(ball => new Ball(ref ball));
+            var logicBalls = _logic.GetBalls();
+            foreach (var b in logicBalls)
             {
-                _balls.Add(ball);
+                var o = b;
+                _balls.Add(new Ball(ref o));
             }
+            _logic._balls.CollectionChanged += CollectionChanged;
+            _logic.UpdateBallPosition(100);
         }
         internal ModelApi(uint width, uint height)
         {
             _logic = LogikaAbstractApi.CreateApi(width, height);
             _balls = new ObservableCollection<Ball>();
+        }
+
+        private void CollectionChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)
+        {
+            //_balls.Clear();
         }
     }
 }

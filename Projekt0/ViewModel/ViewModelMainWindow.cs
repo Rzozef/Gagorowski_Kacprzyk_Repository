@@ -32,18 +32,14 @@ namespace ViewModel
         {
             SimulationButtonClicked = new CommandHandler(StartSimulation, CanStartSimulation);
             BallsNumber = "0";
+
+            _modelAbstractApi = ModelAbstractApi.CreateApi(200, 200);
         }
 
         private void StartSimulation(object value)
         {
             BeginSimulationClicked = true;
             _modelAbstractApi.CreateBalls(Convert.ToUInt32(BallsNumber));
-            //_balls.Add(_modelAbstractApi.GetBalls());
-            //foreach (var element in _modelAbstractApi.GetBalls())
-            //{
-            //    _balls.Add(new Ball { BallX = element.x, BallY = element.y, BallSize = element.size });
-            //}
-            int i = 2;
         }
 
         private bool CanStartSimulation(object value)
