@@ -1,44 +1,46 @@
 ﻿using NUnit.Framework;
-using Logika;
 
-namespace LogikaApiTests
+namespace Logika
 {
-    public class Tests
+    namespace Tests
     {
-        private LogikaAbstractApi api;
-        private BallsRepositoryAbstract<BallAbstract> balls_copy;
-        [SetUp]
-        public void Setup()
+        public class LogikaApiTests
         {
-            api = LogikaAbstractApi.CreateApi(100, 100);
-        }
-
-        [Test]
-        public void CreateBallsTests()
-        {
-            Assert.AreEqual(0, api.GetBalls().Count);
-            api.CreateBalls(3);
-            Assert.AreEqual(3, api.GetBalls().Count);
-        }
-
-        public void MoveBallsTests()
-        {
-            api.CreateBalls(3);
-            for(int i = 0; i < api.GetBalls().Count; i++)
+            private LogikaAbstractApi api;
+            private BallsRepositoryAbstract<BallAbstract> balls_copy;
+            [SetUp]
+            public void Setup()
             {
-                balls_copy.Add(api.GetBalls()[i]);
+                api = LogikaAbstractApi.CreateApi(100, 100);
             }
-            
-            api.MoveBalls();
-            for (int i = 0; i < api.GetBalls().Count; i++)
-                if (api.GetBalls()[i].X == balls_copy[i].X)
+
+            [Test]
+            public void CreateBallsTests()
+            {
+                Assert.AreEqual(0, api.GetBalls().Count);
+                api.CreateBalls(3);
+                Assert.AreEqual(3, api.GetBalls().Count);
+            }
+
+            public void MoveBallsTests()
+            {
+                api.CreateBalls(3);
+                for (int i = 0; i < api.GetBalls().Count; i++)
                 {
-                    Assert.AreNotEqual(api.GetBalls()[i].Y, balls_copy[i].Y);
+                    balls_copy.Add(api.GetBalls()[i]);
                 }
-                else
-                {
-                    Assert.AreNotEqual(api.GetBalls()[i].X, balls_copy[i].X);
-                }
+
+                api.MoveBalls();
+                for (int i = 0; i < api.GetBalls().Count; i++)
+                    if (api.GetBalls()[i].X == balls_copy[i].X)
+                    {
+                        Assert.AreNotEqual(api.GetBalls()[i].Y, balls_copy[i].Y);
+                    }
+                    else
+                    {
+                        Assert.AreNotEqual(api.GetBalls()[i].X, balls_copy[i].X);
+                    }
+            }
         }
     }
 }

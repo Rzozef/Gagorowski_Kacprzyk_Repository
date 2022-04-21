@@ -1,20 +1,23 @@
 ﻿using NUnit.Framework;
 using Logika;
 
-namespace BallsRepositoryTests
+namespace Logika
 {
-    public class Test
+    namespace Tests
     {
-        [SetUp]
-        public void Setup()
+        public class BallsRepositoryTests
         {
-        }
-        
+            [SetUp]
+            public void Setup()
+            {
+            }
 
-        [Test]
-        public void CreateBallsTests()
-        {
 
+            [Test]
+            public void CreateBallsTests()
+            {
+
+            }
         }
     }
 }
