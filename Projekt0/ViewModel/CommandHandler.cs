@@ -1,43 +1,46 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace ViewModel
+namespace Prezentacja
 {
-    public class CommandHandler : ICommand
+    namespace ViewModel
     {
-        Action<object> _execute;
-        Func<object, bool> _canExecute;
-
-        public CommandHandler(Action<object> execute, Func<object, bool> canExecute)
+        public class CommandHandler : ICommand
         {
-            _execute = execute;
-            _canExecute = canExecute;
-        }
+            Action<object> _execute;
+            Func<object, bool> _canExecute;
 
-        public event EventHandler CanExecuteChanged
-        {
-            add
+            public CommandHandler(Action<object> execute, Func<object, bool> canExecute)
             {
-                //CommandManager.RequerySuggested += value;
+                _execute = execute;
+                _canExecute = canExecute;
             }
-            remove
-            {
-                //CommandManager.RequerySuggested -= value;
-            }
-        }
 
-        public bool CanExecute(object parameter)
-        {
-            if(_canExecute != null)
+            public event EventHandler CanExecuteChanged
             {
-                return _canExecute(parameter);
+                add
+                {
+                    //CommandManager.RequerySuggested += value;
+                }
+                remove
+                {
+                    //CommandManager.RequerySuggested -= value;
+                }
             }
-            return false;
-        }
 
-        public void Execute(object parameter)
-        {
-            _execute(parameter);
+            public bool CanExecute(object parameter)
+            {
+                if (_canExecute != null)
+                {
+                    return _canExecute(parameter);
+                }
+                return false;
+            }
+
+            public void Execute(object parameter)
+            {
+                _execute(parameter);
+            }
         }
     }
 }

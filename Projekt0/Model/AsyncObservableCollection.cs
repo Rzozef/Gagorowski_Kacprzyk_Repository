@@ -6,53 +6,56 @@ using System.ComponentModel;
 using System.Text;
 using System.Threading;
 
-namespace Model
+namespace Prezentacja
 {
-    internal class AsyncObservableCollection<T> : ObservableCollection<T>
+    namespace Model
     {
-        private SynchronizationContext _synchronizationContext = SynchronizationContext.Current;
-
-        public AsyncObservableCollection()
+        internal class AsyncObservableCollection<T> : ObservableCollection<T>
         {
-        }
+            private SynchronizationContext _synchronizationContext = SynchronizationContext.Current;
 
-        public AsyncObservableCollection(IEnumerable<T> list)
-            : base(list)
-        {
-        }
-
-        protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
-        {
-            if (SynchronizationContext.Current == _synchronizationContext)
+            public AsyncObservableCollection()
             {
-                RaiseCollectionChanged(e);
             }
-            else
-            {
-                _synchronizationContext.Send(RaiseCollectionChanged, e);
-            }
-        }
 
-        private void RaiseCollectionChanged(object param)
-        {
-            base.OnCollectionChanged((NotifyCollectionChangedEventArgs)param);
-        }
-
-        protected override void OnPropertyChanged(PropertyChangedEventArgs e)
-        {
-            if (SynchronizationContext.Current == _synchronizationContext)
+            public AsyncObservableCollection(IEnumerable<T> list)
+                : base(list)
             {
-                RaisePropertyChanged(e);
             }
-            else
-            {
-                _synchronizationContext.Send(RaisePropertyChanged, e);
-            }
-        }
 
-        private void RaisePropertyChanged(object param)
-        {
-            base.OnPropertyChanged((PropertyChangedEventArgs)param);
+            protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+            {
+                if (SynchronizationContext.Current == _synchronizationContext)
+                {
+                    RaiseCollectionChanged(e);
+                }
+                else
+                {
+                    _synchronizationContext.Send(RaiseCollectionChanged, e);
+                }
+            }
+
+            private void RaiseCollectionChanged(object param)
+            {
+                base.OnCollectionChanged((NotifyCollectionChangedEventArgs)param);
+            }
+
+            protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+            {
+                if (SynchronizationContext.Current == _synchronizationContext)
+                {
+                    RaisePropertyChanged(e);
+                }
+                else
+                {
+                    _synchronizationContext.Send(RaisePropertyChanged, e);
+                }
+            }
+
+            private void RaisePropertyChanged(object param)
+            {
+                base.OnPropertyChanged((PropertyChangedEventArgs)param);
+            }
         }
     }
 }

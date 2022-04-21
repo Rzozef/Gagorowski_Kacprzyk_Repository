@@ -6,30 +6,33 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Text;
 
-namespace Model
+namespace Prezentacja
 {
-    internal class BallsRepository<Ball> : AsyncObservableCollection<Ball>
+    namespace Model
     {
-
-        public void RegisterPropertyChanged(INotifyCollectionChanged item)
+        internal class BallsRepository<Ball> : AsyncObservableCollection<Ball>
         {
+
+            public void RegisterPropertyChanged(INotifyCollectionChanged item)
+            {
                 if (item != null)
                 {
                     item.CollectionChanged += new NotifyCollectionChangedEventHandler(ItemPropertyChanged);
                 }
-        }
+            }
 
-        public void UnRegisterPropertyChanged(INotifyCollectionChanged item)
-        {
+            public void UnRegisterPropertyChanged(INotifyCollectionChanged item)
+            {
                 if (item != null)
                 {
-                    item.CollectionChanged-= new NotifyCollectionChangedEventHandler(ItemPropertyChanged);
+                    item.CollectionChanged -= new NotifyCollectionChangedEventHandler(ItemPropertyChanged);
                 }
-        }
+            }
 
-        private void ItemPropertyChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            base.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            private void ItemPropertyChanged(object sender, NotifyCollectionChangedEventArgs e)
+            {
+                base.OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            }
         }
     }
 }
