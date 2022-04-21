@@ -14,6 +14,7 @@ namespace ViewModel
         private string _ballsNumber;
         private bool _beginSimulationClicked;
         private ModelAbstractApi _modelAbstractApi;
+<<<<<<< HEAD
         private uint _windowWidth;
         private uint _windowHeight;
         public ICommand SimulationButtonClicked { get; set; }
@@ -23,6 +24,10 @@ namespace ViewModel
             get => _modelAbstractApi.GetBalls();
         }
 
+=======
+        public ICommand SimulationButtonClicked { get; set; }
+
+>>>>>>> a5a26aea1d5f590702944712aa4fcb96abadf095
         public string BallsNumber
         {
             get { return _ballsNumber; }
@@ -50,11 +55,16 @@ namespace ViewModel
         {
             SimulationButtonClicked = new CommandHandler(StartSimulation, CanStartSimulation);
             BallsNumber = "0";
+<<<<<<< HEAD
 
             WindowWidth = 300;
             WindowHeight = 300;
 
             _modelAbstractApi = ModelAbstractApi.CreateApi(WindowWidth, WindowHeight);
+=======
+
+            _modelAbstractApi = ModelAbstractApi.CreateApi(200, 200);
+>>>>>>> a5a26aea1d5f590702944712aa4fcb96abadf095
         }
 
         private void StartSimulation(object value)
@@ -69,5 +79,13 @@ namespace ViewModel
         }
     }
 
+<<<<<<< HEAD
+=======
+    public class Ball
+    {
+        public string BallPosition { get; set; }
+    }
+
+>>>>>>> a5a26aea1d5f590702944712aa4fcb96abadf095
     
 }
