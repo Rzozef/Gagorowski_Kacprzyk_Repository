@@ -14,6 +14,10 @@ namespace Prezentacja
             protected abstract LogikaAbstractApi Logic { get; }
             public abstract ObservableCollection<BallAbstract> GetBalls();
             public abstract void CreateBalls(uint count);
+            public abstract uint WindowWidth { get; set; }
+            public abstract uint WindowHeight { get; set; }
+            public abstract string BallsNumber { get; set; }
+            public abstract bool BeginSimulationClicked { get; set; }
             public static ModelAbstractApi CreateApi(uint width, uint height)
             {
                 return new ModelApi(width, height);
@@ -23,6 +27,10 @@ namespace Prezentacja
         {
             private BallsRepository<BallAbstract> _balls;
             private LogikaAbstractApi _logic;
+            private uint _windowWidth;
+            private uint _windowHeight;
+            private string _ballsNumber;
+            private bool _beginSimulationClicked;
             protected override LogikaAbstractApi Logic
             {
                 get => _logic;
@@ -30,6 +38,16 @@ namespace Prezentacja
             public override ObservableCollection<BallAbstract> GetBalls()
             {
                 return _balls;
+            }
+            public override string BallsNumber
+            {
+                get => _ballsNumber;
+                set => _ballsNumber = value;
+            }
+            public override bool BeginSimulationClicked
+            {
+                get => _beginSimulationClicked;
+                set => _beginSimulationClicked = value;
             }
             public override void CreateBalls(uint count)
             {
@@ -45,8 +63,23 @@ namespace Prezentacja
 
                 _logic.UpdateBallPosition(1);
             }
+            public override uint WindowWidth
+            {
+                get => _windowWidth;
+                set => _windowWidth = value;
+            }
+            public override uint WindowHeight
+            {
+                get => _windowHeight;
+                set => _windowHeight = value;
+            }
             internal ModelApi(uint width, uint height)
             {
+                WindowWidth = width;
+                WindowHeight = height;
+                BallsNumber = "0";
+                BeginSimulationClicked = false;
+
                 _logic = LogikaAbstractApi.CreateApi(width, height);
                 _balls = new BallsRepository<BallAbstract>();
             }

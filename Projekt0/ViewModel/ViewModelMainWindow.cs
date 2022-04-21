@@ -13,11 +13,8 @@ namespace Prezentacja
     {
         public class ViewModelMainWindow : BindableBase
         {
-            private string _ballsNumber;
-            private bool _beginSimulationClicked;
             private ModelAbstractApi _modelAbstractApi;
-            private uint _windowWidth;
-            private uint _windowHeight;
+
             public ICommand SimulationButtonClicked { get; set; }
 
             public ObservableCollection<BallAbstract> Balls
@@ -27,36 +24,35 @@ namespace Prezentacja
 
             public string BallsNumber
             {
-                get { return _ballsNumber; }
-                set { _ballsNumber = value; }
+                get { return _modelAbstractApi.BallsNumber; }
+                set { _modelAbstractApi.BallsNumber = value; }
             }
 
             public uint WindowWidth
             {
-                get => _windowWidth;
-                set => _windowWidth = value;
+                get => _modelAbstractApi.WindowWidth;
+                set => _modelAbstractApi.WindowWidth = value;
             }
             public uint WindowHeight
             {
-                get => _windowHeight;
-                set => _windowHeight = value;
+                get => _modelAbstractApi.WindowHeight;
+                set => _modelAbstractApi.WindowHeight = value;
             }
 
             public bool BeginSimulationClicked
             {
-                get { return _beginSimulationClicked; }
-                set { _beginSimulationClicked = value; }
+                get { return _modelAbstractApi.BeginSimulationClicked; }
+                set { _modelAbstractApi.BeginSimulationClicked = value; }
             }
 
             public ViewModelMainWindow()
             {
                 SimulationButtonClicked = new CommandHandler(StartSimulation, CanStartSimulation);
-                BallsNumber = "0";
 
-                WindowWidth = 300;
-                WindowHeight = 300;
+                uint win_width = 300;
+                uint win_height = 300;
 
-                _modelAbstractApi = ModelAbstractApi.CreateApi(WindowWidth, WindowHeight);
+                _modelAbstractApi = ModelAbstractApi.CreateApi(win_width, win_height);
             }
 
             private void StartSimulation(object value)

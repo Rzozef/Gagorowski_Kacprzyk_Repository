@@ -5,7 +5,7 @@ namespace Prezentacja
 {
     namespace ViewModel
     {
-        public class CommandHandler : ICommand
+        internal class CommandHandler : ICommand
         {
             Action<object> _execute;
             Func<object, bool> _canExecute;
