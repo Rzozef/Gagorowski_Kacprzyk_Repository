@@ -57,8 +57,12 @@ namespace Prezentacja
 
             private void StartSimulation(object value)
             {
-                BeginSimulationClicked = true;
-                _modelAbstractApi.CreateBalls(Convert.ToUInt32(BallsNumber));
+                uint ballsNumber;
+                if (uint.TryParse(BallsNumber, out ballsNumber))
+                {
+                    BeginSimulationClicked = true;
+                    _modelAbstractApi.CreateBalls(ballsNumber);
+                }
             }
 
             private bool CanStartSimulation(object value)
