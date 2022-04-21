@@ -18,7 +18,9 @@
             <ItemsControl Name="Balls" ItemsSource="{Binding Balls}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Ellipse Stroke="Black" Margin="{Binding BallPosition}" Fill="Red" Width="100" Height="100"/>
+                        <Canvas>
+                            <Ellipse Stroke="Black" Fill="Red" Width="{Binding BallSize}" Height="{Binding BallSize}" Canvas.Left="{Binding BallX}" Canvas.Top="{Binding BallY}"/>
+                        </Canvas>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
