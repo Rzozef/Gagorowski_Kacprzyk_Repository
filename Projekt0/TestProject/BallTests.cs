@@ -15,26 +15,26 @@ namespace BallTests
         [Test]
         public void UpdatingPositionTests()
         {
-            Assert.AreEqual(100, test_ball1.x);
-            Assert.AreEqual(100, test_ball1.y);
+            Assert.AreEqual(100, test_ball1.X);
+            Assert.AreEqual(100, test_ball1.Y);
             test_ball1.UpdatePosition();
-            Assert.AreEqual(110, test_ball1.x);
-            Assert.AreEqual(110, test_ball1.y);
+            Assert.AreEqual(110, test_ball1.X);
+            Assert.AreEqual(110, test_ball1.Y);
         }
 
         [Test]
         public void ChangingDirectionTests()
         {
-            Assert.AreEqual(100, test_ball1.x);
-            Assert.AreEqual(100, test_ball1.y);
+            Assert.AreEqual(100, test_ball1.X);
+            Assert.AreEqual(100, test_ball1.Y);
             test_ball1.ChangeDirection('x');
             test_ball1.UpdatePosition();
-            Assert.AreEqual(90, test_ball1.x);
-            Assert.AreEqual(110, test_ball1.y);
+            Assert.AreEqual(90, test_ball1.X);
+            Assert.AreEqual(110, test_ball1.Y);
             test_ball1.ChangeDirection('y');
             test_ball1.UpdatePosition();
-            Assert.AreEqual(80, test_ball1.x);
-            Assert.AreEqual(100, test_ball1.y);
+            Assert.AreEqual(80, test_ball1.X);
+            Assert.AreEqual(100, test_ball1.Y);
         }
     }
 }

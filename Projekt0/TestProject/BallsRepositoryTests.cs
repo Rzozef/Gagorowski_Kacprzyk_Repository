@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using Logika;
 
-namespace LogikaApiTests
+namespace LogikaTests
 {
     public class Tests
     {
