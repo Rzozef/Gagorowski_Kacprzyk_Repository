@@ -8,7 +8,11 @@ using System.Text;
 
 namespace Logika
 {
-    public class BallsRepository<Ball> : ObservableCollection<Ball>
+    public abstract class BallsRepositoryAbstract<BallApi> : ObservableCollection<BallApi>
+    {
+        
+    }
+    internal class BallsRepository<BallApi> : BallsRepositoryAbstract<BallApi>
     {
         protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
         {

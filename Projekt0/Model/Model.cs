@@ -7,38 +7,10 @@ using Logika;
 
 namespace Model
 {
-    public abstract class BallAbstract // TODO przemyśleć gdzie te klasy powinny się znaleźć
-    {
-        public abstract float BallX { get; }
-        public abstract float BallY { get; }
-        public abstract float BallSize { get; }
-    }
-    public class Ball : BallAbstract
-    {
-        private Logika.Ball _parent;
-        public override float BallX
-        {
-            get => _parent.X;
-        }
-        public override float BallY
-        {
-            get => _parent.Y;
-        }
-        public override float BallSize
-        {
-            get => _parent.Size;
-        }
-
-        public Ball(ref Logika.Ball parent)
-        {
-            _parent = parent;
-        }
-    }
-
     public abstract class ModelAbstractApi
     {
-        protected LogikaAbstractApi _logic;
-        public abstract ObservableCollection<Ball> GetBalls();
+        protected abstract LogikaAbstractApi Logic { get; }
+        public abstract ObservableCollection<BallAbstract> GetBalls();
         public abstract void CreateBalls(uint count);
         public static ModelAbstractApi CreateApi(uint width, uint height)
         {
@@ -47,8 +19,13 @@ namespace Model
     }
     internal class ModelApi : ModelAbstractApi
     {
-        private BallsRepository<Ball> _balls;
-        public override ObservableCollection<Ball> GetBalls()
+        private BallsRepository<BallAbstract> _balls;
+        private LogikaAbstractApi _logic;
+        protected override LogikaAbstractApi Logic
+        {
+            get => _logic;
+        }
+        public override ObservableCollection<BallAbstract> GetBalls()
         {
             return _balls;
         }
@@ -62,14 +39,14 @@ namespace Model
                 var o = b;
                 _balls.Add(new Ball(ref o));
             }
-            _balls.RegisterPropertyChanged(_logic._balls);
+            _balls.RegisterPropertyChanged(_logic.GetBalls());
             
             _logic.UpdateBallPosition(1);
         }
         internal ModelApi(uint width, uint height)
         {
             _logic = LogikaAbstractApi.CreateApi(width, height);
-            _balls = new BallsRepository<Ball>();
+            _balls = new BallsRepository<BallAbstract>();
         }
     }
 }

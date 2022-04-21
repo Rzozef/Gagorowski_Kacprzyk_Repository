@@ -18,7 +18,7 @@ namespace ViewModel
         private uint _windowHeight;
         public ICommand SimulationButtonClicked { get; set; }
 
-        public ObservableCollection<Ball> Balls
+        public ObservableCollection<BallAbstract> Balls
         {
             get => _modelAbstractApi.GetBalls();
         }

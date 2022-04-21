@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Model
 {
-    public class BallsRepository<Ball> : AsyncObservableCollection<Ball>
+    internal class BallsRepository<Ball> : AsyncObservableCollection<Ball>
     {
 
         public void RegisterPropertyChanged(INotifyCollectionChanged item)

@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace Model
 {
-    public class AsyncObservableCollection<T> : ObservableCollection<T>
+    internal class AsyncObservableCollection<T> : ObservableCollection<T>
     {
         private SynchronizationContext _synchronizationContext = SynchronizationContext.Current;
 

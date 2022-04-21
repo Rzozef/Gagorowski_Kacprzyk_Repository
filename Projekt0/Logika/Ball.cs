@@ -13,13 +13,28 @@ namespace Logika
         LEFT,
         RIGHT
     }
-    public class Ball : INotifyPropertyChanged
+
+    public abstract class BallAbstract : INotifyPropertyChanged
+    {
+        public abstract float X { get; set; }
+        public abstract float Y { get; set; }
+        public abstract float Size { get; set; }
+        public abstract event PropertyChangedEventHandler PropertyChanged;
+
+        public abstract void UpdatePosition(Direction direction);
+        public static BallAbstract CreateApi(float x, float y, float size)
+        {
+            return new Ball(x, y, size);
+        }
+    }
+
+    internal class Ball : BallAbstract
     {
         private float x { get; set; }
-        public float y { get; set; }
-        public float size { get; set; }
+        private float y { get; set; }
+        private float size { get; set; }
 
-        public float X
+        public override float X
         {
             get => x;
             set
@@ -31,7 +46,7 @@ namespace Logika
                 }
             }
         }
-        public float Y
+        public override float Y
         {
             get => y;
             set
@@ -43,7 +58,7 @@ namespace Logika
                 }
             }
         }
-        public float Size // TODO dopisz pozostale get/set
+        public override float Size
         {
             get => size;
             set
@@ -56,7 +71,7 @@ namespace Logika
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public override event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             if (PropertyChanged != null)
@@ -65,14 +80,14 @@ namespace Logika
             }
         }
 
-        public Ball(float x, float y, float size)
+        internal Ball(float x, float y, float size)
         {
             this.x = x;
             this.y = y;
             this.size = size;
         }
 
-        public void UpdatePosition(Direction direction)
+        public override void UpdatePosition(Direction direction)
         {
             switch(direction)
             {

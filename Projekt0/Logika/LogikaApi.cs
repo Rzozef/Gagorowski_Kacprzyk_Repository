@@ -9,11 +9,10 @@ namespace Logika
 {
     public abstract class LogikaAbstractApi
     {
-        public BallsRepository<Ball> _balls; // TODO private, abstract
         public abstract uint screen_width { get; }
         public abstract uint screen_height { get; }
         public abstract void CreateBalls(uint count);
-        public abstract ObservableCollection<Ball> GetBalls();
+        public abstract ObservableCollection<BallAbstract> GetBalls();
         public abstract void MoveBalls();
         public abstract void UpdateBallPosition(int interval_ms);
         public static LogikaAbstractApi CreateApi(uint width, uint height)
@@ -22,20 +21,16 @@ namespace Logika
         }
     }
     internal class LogikaApi : LogikaAbstractApi
-    {   
+    {
+        private BallsRepository<BallAbstract> _balls;
         public override uint screen_width { get; }
         public override uint screen_height { get; }
-
-        public ObservableCollection<Ball> Balls
-        {
-            get { return _balls; }
-        }
 
         public LogikaApi(uint width, uint height)
         {
             screen_width = width;
             screen_height = height;
-            _balls = new BallsRepository<Ball>();
+            _balls = new BallsRepository<BallAbstract>();
         }
 
         public override void CreateBalls(uint count)
@@ -49,14 +44,14 @@ namespace Logika
             }
         }
 
-        public override ObservableCollection<Ball> GetBalls()
+        public override ObservableCollection<BallAbstract> GetBalls()
         {
             return _balls;
         }
 
         public override void MoveBalls()
         {
-            foreach (var ball in Balls)
+            foreach (var ball in _balls)
             {
                 List<Direction> possibleDirections = new List<Direction> { Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT };
                 if (ball.X - ball.Size <= 0)
