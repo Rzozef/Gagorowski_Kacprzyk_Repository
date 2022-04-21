@@ -22,6 +22,7 @@ namespace Logika
                 Assert.AreEqual(3, api.GetBalls().Count);
             }
 
+            [Test]
             public void MoveBallsTests()
             {
                 api.CreateBalls(3);
