@@ -6,9 +6,9 @@ namespace Logika
 {
     public class Ball
     {
-        private float x;
-        private float y;
-        private float size;
+        public float x { get; private set; }
+        public float y { get; private set; }
+        public float size { get; private set; }
 
         private float x_speed;
         private float y_speed;

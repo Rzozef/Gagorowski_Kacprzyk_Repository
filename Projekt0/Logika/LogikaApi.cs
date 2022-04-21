@@ -8,7 +8,7 @@ namespace Logika
         public abstract uint screen_width { get; }
         public abstract uint screen_height { get; }
         public abstract void CreateBalls(uint count);
-
+        public abstract List<Ball> GetBalls();
         public static LogikaAbstractApi CreateApi(uint width, uint height)
         {
             return new LogikaApi(width, height);
@@ -18,9 +18,9 @@ namespace Logika
     {   
         public override uint screen_width { get; }
         public override uint screen_height { get; }
-        private IList<Ball> balls;
+        private List<Ball> balls;
 
-        public IList<Ball> Balls
+        public List<Ball> Balls
         {
             get { return balls; }
         }
@@ -45,6 +45,11 @@ namespace Logika
 
                 balls.Add(new Ball(random_x, random_y, 10, random_x_speed, random_y_speed));
             }
+        }
+
+        public override List<Ball> GetBalls()
+        {
+            return balls.ConvertAll(ball => new Ball(ball.x, ball.y, ball.size));
         }
     }
 }

@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Windows.Input;
 
+using Model;
+
+using System;
+using System.Collections.ObjectModel;
+
 namespace ViewModel
 {
     public class ViewModelMainWindow : BindableBase
     {
         private string _ballsNumber;
         private bool _beginSimulationClicked;
-        private List<Ball> _balls = new List<Ball>();
+        private ModelAbstractApi _modelAbstractApi;
         public ICommand SimulationButtonClicked { get; set; }
-
-        public List<Ball> Balls
-        {
-            get => _balls;
-        }
 
         public string BallsNumber
         {
@@ -32,15 +32,18 @@ namespace ViewModel
         {
             SimulationButtonClicked = new CommandHandler(StartSimulation, CanStartSimulation);
             BallsNumber = "0";
-            _balls.Add(new Ball() { BallPosition = "0,0,0,0" });
-            _balls.Add(new Ball() { BallPosition = "200,0,0,0" });
-
-
         }
 
         private void StartSimulation(object value)
         {
             BeginSimulationClicked = true;
+            _modelAbstractApi.CreateBalls(Convert.ToUInt32(BallsNumber));
+            //_balls.Add(_modelAbstractApi.GetBalls());
+            //foreach (var element in _modelAbstractApi.GetBalls())
+            //{
+            //    _balls.Add(new Ball { BallX = element.x, BallY = element.y, BallSize = element.size });
+            //}
+            int i = 2;
         }
 
         private bool CanStartSimulation(object value)
@@ -53,4 +56,6 @@ namespace ViewModel
     {
         public string BallPosition { get; set; }
     }
+
+    
 }
