@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace Logika
 {
     public abstract class LogikaAbstractApi
     {
+        public BallsRepository<Ball> _balls; // TODO private, abstract
         public abstract uint screen_width { get; }
         public abstract uint screen_height { get; }
         public abstract void CreateBalls(uint count);
-        public abstract List<Ball> GetBalls();
+        public abstract ObservableCollection<Ball> GetBalls();
+        public abstract void MoveBalls();
+        public abstract void UpdateBallPosition(int interval_ms);
         public static LogikaAbstractApi CreateApi(uint width, uint height)
         {
             return new LogikaApi(width, height);
@@ -18,18 +25,17 @@ namespace Logika
     {   
         public override uint screen_width { get; }
         public override uint screen_height { get; }
-        private List<Ball> balls;
 
-        public List<Ball> Balls
+        public ObservableCollection<Ball> Balls
         {
-            get { return balls; }
+            get { return _balls; }
         }
 
         public LogikaApi(uint width, uint height)
         {
             screen_width = width;
             screen_height = height;
-            balls = new List<Ball>();
+            _balls = new BallsRepository<Ball>();
         }
 
         public override void CreateBalls(uint count)
@@ -47,13 +53,34 @@ namespace Logika
                 float random_x_speed = random.Next(10);
                 float random_y_speed = random.Next(10);
 
-                balls.Add(new Ball(random_x, random_y, 10, random_x_speed, random_y_speed));
+                _balls.Add(new Ball(random_x, random_y, 10, random_x_speed, random_y_speed));
             }
         }
 
-        public override List<Ball> GetBalls()
+        public override ObservableCollection<Ball> GetBalls()
         {
-            return balls.ConvertAll(ball => new Ball(ball.x, ball.y, ball.size));
+            return _balls;
+            //return _balls.ConvertAll(ball => new Ball(ball.x, ball.y, ball.size));
+        }
+
+        public override void MoveBalls()
+        {
+            foreach (var ball in Balls)
+            {
+                ball.Y += 2;
+            }
+        }
+
+        public override async void UpdateBallPosition(int interval_ms)
+        {
+            await Task.Run(() =>
+            {
+                while (true)
+                {
+                    MoveBalls();
+                    Task.Delay(interval_ms).Wait();
+                }
+            });
         }
     }
 }
