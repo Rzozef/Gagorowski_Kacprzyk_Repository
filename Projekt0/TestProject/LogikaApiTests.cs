@@ -12,6 +12,7 @@ namespace Logika
             public void Setup()
             {
                 api = LogikaAbstractApi.CreateApi(100, 100);
+                balls_copy = BallsRepositoryApi<BallAbstract>.CreateApi();
             }
 
             [Test]
@@ -28,7 +29,9 @@ namespace Logika
                 api.CreateBalls(3);
                 for (int i = 0; i < api.GetBalls().Count; i++)
                 {
-                    balls_copy.Add(api.GetBalls()[i]);
+                    var ball = api.GetBalls()[i];
+                    BallAbstract ballClone = BallAbstract.CreateApi(ball.X, ball.Y, ball.Size);
+                    balls_copy.Add(ballClone);
                 }
 
                 api.MoveBalls();
