@@ -1,20 +1,21 @@
 ﻿using NUnit.Framework;
 using Logika;
 
-namespace LogikaTests
+namespace BallsRepositoryTests
 {
-    public class Tests
+    public class Test
     {
         [SetUp]
         public void Setup()
         {
-
         }
+        
 
         [Test]
-        public void CosStestujemyByczq()
+        public void CreateBallsTests()
         {
 
         }
     }
 }
+

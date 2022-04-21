@@ -9,7 +9,7 @@ namespace BallTests
         [SetUp]
         public void Setup()
         {
-            test_ball1 = new Ball(100, 100, 20, 10, 10);
+            test_ball1 = new Ball(100, 100, 20);
         }
 
         [Test]
@@ -17,23 +17,17 @@ namespace BallTests
         {
             Assert.AreEqual(100, test_ball1.X);
             Assert.AreEqual(100, test_ball1.Y);
-            test_ball1.UpdatePosition();
-            Assert.AreEqual(110, test_ball1.X);
-            Assert.AreEqual(110, test_ball1.Y);
-        }
-
-        [Test]
-        public void ChangingDirectionTests()
-        {
+            test_ball1.UpdatePosition(Direction.UP);
+            Assert.AreEqual(100, test_ball1.X);
+            Assert.AreEqual(101, test_ball1.Y);
+            test_ball1.UpdatePosition(Direction.DOWN);
             Assert.AreEqual(100, test_ball1.X);
             Assert.AreEqual(100, test_ball1.Y);
-            test_ball1.ChangeDirection('x');
-            test_ball1.UpdatePosition();
-            Assert.AreEqual(90, test_ball1.X);
-            Assert.AreEqual(110, test_ball1.Y);
-            test_ball1.ChangeDirection('y');
-            test_ball1.UpdatePosition();
-            Assert.AreEqual(80, test_ball1.X);
+            test_ball1.UpdatePosition(Direction.LEFT);
+            Assert.AreEqual(99, test_ball1.X);
+            Assert.AreEqual(100, test_ball1.Y);
+            test_ball1.UpdatePosition(Direction.RIGHT);
+            Assert.AreEqual(100, test_ball1.X);
             Assert.AreEqual(100, test_ball1.Y);
         }
     }
