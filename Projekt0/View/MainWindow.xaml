@@ -14,7 +14,6 @@
             <ColumnDefinition Width="579*"/>
             <ColumnDefinition Width="221*"/>
         </Grid.ColumnDefinitions>
-<<<<<<< HEAD
         <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,79,0" Width="{Binding WindowWidth}" Height="{Binding WindowHeight}">
             <ItemsControl Name="Balls" ItemsSource="{Binding Balls}">
                 <ItemsControl.ItemTemplate>
@@ -26,9 +25,6 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Border>
-=======
-        <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,79,0"/>
->>>>>>> a5a26aea1d5f590702944712aa4fcb96abadf095
         <TextBox x:Name="BallsNumberTextBox" HorizontalAlignment="Left" Margin="9,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Height="40" FontSize="22" TextAlignment="Center" Text="{Binding BallsNumber}" Grid.Column="1" MaxLines="1" MaxLength="11"/>
         <TextBlock x:Name="BallsNumberTextBlock" HorizontalAlignment="Left" Margin="9,50,0,0" TextWrapping="Wrap" Text="Liczba Kul" VerticalAlignment="Top" Height="37" Width="148" FontSize="24" TextAlignment="Center" FontFamily="Segoe UI Semibold" Grid.Column="1"/>
         <Button x:Name="StartSimulationButton" Content="Rozpocznij Symulację" HorizontalAlignment="Left" Margin="9,217,0,0" VerticalAlignment="Top" Height="44" Width="148" FontSize="16" FontFamily="Segoe UI Light" RenderTransformOrigin="1,0" Grid.Column="1" Command="{Binding SimulationButtonClicked}"/>

@@ -47,11 +47,7 @@ namespace Model
     }
     internal class ModelApi : ModelAbstractApi
     {
-<<<<<<< HEAD
         private BallsRepository<Ball> _balls;
-=======
-        private ObservableCollection<Ball> _balls;
->>>>>>> a5a26aea1d5f590702944712aa4fcb96abadf095
         public override ObservableCollection<Ball> GetBalls()
         {
             return _balls;
@@ -60,38 +56,20 @@ namespace Model
         {
             _logic.CreateBalls(count);
             _balls.Clear();
-<<<<<<< HEAD
-=======
-            //var convertedBalls = _logic.GetBalls().ConvertAll(ball => new Ball(ref ball));
->>>>>>> a5a26aea1d5f590702944712aa4fcb96abadf095
             var logicBalls = _logic.GetBalls();
             foreach (var b in logicBalls)
             {
                 var o = b;
                 _balls.Add(new Ball(ref o));
             }
-<<<<<<< HEAD
             _balls.RegisterPropertyChanged(_logic._balls);
             
             _logic.UpdateBallPosition(1);
-=======
-            _logic._balls.CollectionChanged += CollectionChanged;
-            _logic.UpdateBallPosition(100);
->>>>>>> a5a26aea1d5f590702944712aa4fcb96abadf095
         }
         internal ModelApi(uint width, uint height)
         {
             _logic = LogikaAbstractApi.CreateApi(width, height);
-<<<<<<< HEAD
             _balls = new BallsRepository<Ball>();
-=======
-            _balls = new ObservableCollection<Ball>();
-        }
-
-        private void CollectionChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)
-        {
-            //_balls.Clear();
->>>>>>> a5a26aea1d5f590702944712aa4fcb96abadf095
         }
     }
 }

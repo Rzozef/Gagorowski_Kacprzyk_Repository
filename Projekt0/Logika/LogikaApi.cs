@@ -45,32 +45,19 @@ namespace Logika
             {
                 float random_x = random.Next(10, (int)(screen_width - 10));
                 float random_y = random.Next(10, (int)(screen_height- 10));
-
-<<<<<<< HEAD
                 _balls.Add(new Ball(random_x, random_y, 10));
-=======
-                float random_x_speed = random.Next(10);
-                float random_y_speed = random.Next(10);
-
-                _balls.Add(new Ball(random_x, random_y, 10, random_x_speed, random_y_speed));
->>>>>>> a5a26aea1d5f590702944712aa4fcb96abadf095
             }
         }
 
         public override ObservableCollection<Ball> GetBalls()
         {
             return _balls;
-<<<<<<< HEAD
-=======
-            //return _balls.ConvertAll(ball => new Ball(ball.x, ball.y, ball.size));
->>>>>>> a5a26aea1d5f590702944712aa4fcb96abadf095
         }
 
         public override void MoveBalls()
         {
             foreach (var ball in Balls)
             {
-<<<<<<< HEAD
                 List<Direction> possibleDirections = new List<Direction> { Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT };
                 if (ball.X - ball.Size <= 0)
                 {
@@ -88,9 +75,6 @@ namespace Logika
                 Random random = new Random();
                 int selection = random.Next(0, possibleDirections.Count);
                 ball.UpdatePosition(possibleDirections[selection]);
-=======
-                ball.Y += 2;
->>>>>>> a5a26aea1d5f590702944712aa4fcb96abadf095
             }
         }
 
