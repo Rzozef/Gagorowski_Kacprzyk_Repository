@@ -14,11 +14,13 @@
             <ColumnDefinition Width="579*"/>
             <ColumnDefinition Width="221*"/>
         </Grid.ColumnDefinitions>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,79,0">
+        <Border BorderBrush="Black" BorderThickness="1" Margin="0,0,79,0" Width="{Binding WindowWidth}" Height="{Binding WindowHeight}">
             <ItemsControl Name="Balls" ItemsSource="{Binding Balls}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Ellipse Stroke="Black" Margin="{Binding BallPosition}" Fill="Red" Width="100" Height="100"/>
+                        <Canvas>
+                            <Ellipse Stroke="Black" Fill="Red" Width="{Binding BallSize}" Height="{Binding BallSize}" Canvas.Left="{Binding BallX}" Canvas.Top="{Binding BallY}"/>
+                        </Canvas>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
