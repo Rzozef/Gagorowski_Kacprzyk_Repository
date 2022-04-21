@@ -6,7 +6,7 @@ namespace LogikaApiTests
     public class Tests
     {
         private LogikaAbstractApi api;
-        private BallsRepository<Ball> balls_copy;
+        private BallsRepositoryAbstract<BallAbstract> balls_copy;
         [SetUp]
         public void Setup()
         {
@@ -16,28 +16,28 @@ namespace LogikaApiTests
         [Test]
         public void CreateBallsTests()
         {
-            Assert.AreEqual(0, api._balls.Count);
+            Assert.AreEqual(0, api.GetBalls().Count);
             api.CreateBalls(3);
-            Assert.AreEqual(3, api._balls.Count);
+            Assert.AreEqual(3, api.GetBalls().Count);
         }
 
         public void MoveBallsTests()
         {
             api.CreateBalls(3);
-            for(int i = 0; i < api._balls.Count; i++)
+            for(int i = 0; i < api.GetBalls().Count; i++)
             {
-                balls_copy.Add(api._balls[i]);
+                balls_copy.Add(api.GetBalls()[i]);
             }
             
             api.MoveBalls();
-            for (int i = 0; i < api._balls.Count; i++)
-                if (api._balls[i].X == balls_copy[i].X)
+            for (int i = 0; i < api.GetBalls().Count; i++)
+                if (api.GetBalls()[i].X == balls_copy[i].X)
                 {
-                    Assert.AreNotEqual(api._balls[i].Y, balls_copy[i].Y);
+                    Assert.AreNotEqual(api.GetBalls()[i].Y, balls_copy[i].Y);
                 }
                 else
                 {
-                    Assert.AreNotEqual(api._balls[i].X, balls_copy[i].X);
+                    Assert.AreNotEqual(api.GetBalls()[i].X, balls_copy[i].X);
                 }
         }
     }

@@ -5,11 +5,11 @@ namespace BallTests
 {
     public class Tests
     {
-        private Ball test_ball1;
+        private BallAbstract test_ball1;
         [SetUp]
         public void Setup()
         {
-            test_ball1 = new Ball(100, 100, 20);
+            test_ball1 = BallAbstract.CreateApi(100, 100, 20);
         }
 
         [Test]
