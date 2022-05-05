@@ -22,6 +22,10 @@ namespace Prezentacja
             {
                 return new ModelApi(width, height);
             }
+            public static ModelAbstractApi CreateApi(uint width, uint height, LogikaAbstractApi logika)
+            {
+                return new ModelApi(width, height, logika);
+            }
         }
         internal class ModelApi : ModelAbstractApi
         {
@@ -74,13 +78,19 @@ namespace Prezentacja
                 set => _windowHeight = value;
             }
             internal ModelApi(uint width, uint height)
+                : this(width, height, LogikaAbstractApi.CreateApi(width, height))
+            {
+                
+            }
+
+            internal ModelApi(uint width, uint height, LogikaAbstractApi logika)
             {
                 WindowWidth = width;
                 WindowHeight = height;
                 BallsNumber = "0";
                 BeginSimulationClicked = false;
 
-                _logic = LogikaAbstractApi.CreateApi(width, height);
+                _logic = logika;
                 _balls = new BallsRepository<BallAbstract>();
             }
         }

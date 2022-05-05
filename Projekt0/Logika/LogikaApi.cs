@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dane;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -19,17 +20,29 @@ namespace Logika
         {
             return new LogikaApi(width, height);
         }
+        public static LogikaAbstractApi CreateApi(uint width, uint height, DaneAbstractApi dane)
+        {
+            return new LogikaApi(width, height, dane);
+        }
     }
     internal class LogikaApi : LogikaAbstractApi
     {
         private BallsRepository<BallAbstract> _balls;
+        private DaneAbstractApi _dane;
         public override uint screen_width { get; }
         public override uint screen_height { get; }
 
-        public LogikaApi(uint width, uint height)
+        internal LogikaApi(uint width, uint height)
+            : this(width, height, DaneAbstractApi.CreateApi())
+        {
+            
+        }
+
+        internal LogikaApi(uint width, uint height, DaneAbstractApi dane)
         {
             screen_width = width;
             screen_height = height;
+            _dane = dane;
             _balls = new BallsRepository<BallAbstract>();
         }
 
