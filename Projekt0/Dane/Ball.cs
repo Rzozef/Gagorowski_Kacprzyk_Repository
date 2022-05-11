@@ -12,6 +12,9 @@ namespace Dane
         public abstract float X { get; set; }
         public abstract float Y { get; set; }
         public abstract float Size { get; set; }
+
+        public abstract event EventHandler<BallEventArgs> ?Moved;
+
         public abstract Vector2 Speed { get; set; }
         public abstract event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,6 +31,7 @@ namespace Dane
         private float _y { get; set; }
         private float _size { get; set; }
         private Vector2 _position { get; set; }
+        public override event EventHandler<BallEventArgs>? Moved;
 
         public override float X
         {
@@ -93,6 +97,8 @@ namespace Dane
         {
             X += Speed.X;
             Y += Speed.Y;
+            BallEventArgs args = new BallEventArgs(this);
+            Moved?.Invoke(this, args);
         }
     }
 }

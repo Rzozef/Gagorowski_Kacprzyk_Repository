@@ -29,6 +29,7 @@ namespace Logika
     internal class LogikaApi : LogikaAbstractApi
     {
         private DaneAbstractApi _dane;
+        private CollisionHandler CollisionHandler { get; set; }
         public override uint screen_width { get; }
         public override uint screen_height { get; }
 
@@ -48,6 +49,8 @@ namespace Logika
             screen_width = width;
             screen_height = height;
             _dane = dane;
+            CollisionHandler = new CollisionHandler(width, height, dane.GetBalls());
+            _dane.BallMoved += BallMoveEnd;
         }
 
         public override void CreateBalls(uint count)
@@ -80,6 +83,13 @@ namespace Logika
                     Task.Delay(interval_ms).Wait();
                 }
             });
+        }
+
+        private void BallMoveEnd(object obj, BallEventArgs args)
+        {
+            Dane.BallAbstract ball = args.Ball;
+            CollisionHandler.HandleBorderCollision(ball);
+            CollisionHandler.HandleBallsCollision(ball);
         }
     }
 }
