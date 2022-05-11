@@ -1,74 +1,75 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Dane
 {
-    public enum Direction
-    {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT
-    }
-
     public abstract class BallAbstract : INotifyPropertyChanged
     {
         public abstract float X { get; set; }
         public abstract float Y { get; set; }
         public abstract float Size { get; set; }
+        public abstract Vector2 Speed { get; set; }
         public abstract event PropertyChangedEventHandler PropertyChanged;
 
-        public abstract void UpdatePosition(Direction direction);
-        public static BallAbstract CreateBall(float x, float y, float size)
+        public abstract void Move();
+        public static BallAbstract CreateBall(float x, float y, float size, Vector2 speed)
         {
-            return new Ball(x, y, size);
+            return new Ball(x, y, size, speed);
         }
     }
 
     internal class Ball : BallAbstract
     {
-        private float x { get; set; }
-        private float y { get; set; }
-        private float size { get; set; }
+        private float _x { get; set; }
+        private float _y { get; set; }
+        private float _size { get; set; }
+        private Vector2 _position { get; set; }
 
         public override float X
         {
-            get => x;
+            get => _x;
             set
             {
-                if (value != x)
+                if (value != _x)
                 {
-                    x = value;
+                    _x = value;
                     NotifyPropertyChanged();
                 }
             }
         }
         public override float Y
         {
-            get => y;
+            get => _y;
             set
             {
-                if (value != y)
+                if (value != _y)
                 {
-                    y = value;
+                    _y = value;
                     NotifyPropertyChanged();
                 }
             }
         }
         public override float Size
         {
-            get => size;
+            get => _size;
             set
             {
-                if (value != size)
+                if (value != _size)
                 {
-                    size = value;
+                    _size = value;
                     NotifyPropertyChanged();
                 }
             }
+        }
+
+        public override Vector2 Speed
+        {
+            get => _position;
+            set => _position = value;
         }
 
         public override event PropertyChangedEventHandler PropertyChanged;
@@ -80,30 +81,18 @@ namespace Dane
             }
         }
 
-        internal Ball(float x, float y, float size)
+        internal Ball(float x, float y, float size, Vector2 speed)
         {
-            this.x = x;
-            this.y = y;
-            this.size = size;
+            X = x;
+            Y = y;
+            Size = size;
+            Speed = speed;
         }
 
-        public override void UpdatePosition(Direction direction)
+        public override void Move()
         {
-            switch(direction)
-            {
-                case Direction.UP:
-                    Y++;
-                    break;
-                case Direction.DOWN:
-                    Y--;
-                    break;
-                case Direction.LEFT:
-                    X--;
-                    break;
-                case Direction.RIGHT:
-                    X++;
-                    break;
-            }
+            X += Speed.X;
+            Y += Speed.Y;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Numerics;
 using System.Text;
 
 namespace Dane
@@ -38,7 +39,8 @@ namespace Dane
             {
                 float random_x = random.Next(10, (int)(_board.Width - 10));
                 float random_y = random.Next(10, (int)(_board.Height - 10));
-                Balls.Add(BallAbstract.CreateBall(random_x, random_y, 10));
+                Vector2 randomSpeed = new Vector2(random.Next(-10, 10), random.Next(-10, 10));
+                Balls.Add(BallAbstract.CreateBall(random_x, random_y, 10, randomSpeed));
             }
         }
 
@@ -51,26 +53,7 @@ namespace Dane
         {
             foreach (var ball in Balls)
             {
-                List<Direction> possibleDirections = new List<Direction> { Direction.UP, Direction.DOWN, Direction.LEFT, Direction.RIGHT };
-                if (ball.X - ball.Size <= 0)
-                {
-                    possibleDirections.Remove(Direction.LEFT);
-                }
-                if (ball.X + ball.Size >= _board.Width)
-                {
-                    possibleDirections.Remove(Direction.RIGHT);
-                }
-                if (ball.Y - ball.Size <= 0)
-                {
-                    possibleDirections.Remove(Direction.DOWN);
-                }
-                if (ball.Y + ball.Size >= _board.Height)
-                {
-                    possibleDirections.Remove(Direction.UP);
-                }
-                Random random = new Random();
-                int selection = random.Next(0, possibleDirections.Count);
-                ball.UpdatePosition(possibleDirections[selection]);
+                ball.Move();
             }
         }
     }

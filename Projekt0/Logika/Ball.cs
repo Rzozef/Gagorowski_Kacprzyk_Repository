@@ -1,27 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Logika
 {
-    public enum Direction
-    {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT
-    }
-
     public abstract class BallAbstract : INotifyPropertyChanged
     {
         public abstract float X { get; set; }
         public abstract float Y { get; set; }
         public abstract float Size { get; set; }
+        public abstract Vector2 Speed { get; set; }
         public abstract event PropertyChangedEventHandler PropertyChanged;
 
-        public abstract void UpdatePosition(Direction direction);
+        public abstract void Move();
         public static BallAbstract CreateBall(Dane.BallAbstract ball)
         {
             return new Ball(ball);
@@ -30,14 +24,14 @@ namespace Logika
 
     internal class Ball : BallAbstract
     {
-        private Dane.BallAbstract _parent { get; set; }
+        private Dane.BallAbstract _parent;
 
         public override float X
         {
             get => _parent.X;
             set
             {
-                if (value != X)
+                if (value != _parent.X)
                 {
                     _parent.X = value;
                     NotifyPropertyChanged();
@@ -69,6 +63,12 @@ namespace Logika
             }
         }
 
+        public override Vector2 Speed
+        {
+            get => _parent.Speed;
+            set => _parent.Speed = value;
+        }
+
         public override event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
@@ -83,23 +83,9 @@ namespace Logika
             _parent = ball;
         }
 
-        public override void UpdatePosition(Direction direction)
+        public override void Move()
         {
-            switch (direction)
-            {
-                case Direction.UP:
-                    Y++;
-                    break;
-                case Direction.DOWN:
-                    Y--;
-                    break;
-                case Direction.LEFT:
-                    X--;
-                    break;
-                case Direction.RIGHT:
-                    X++;
-                    break;
-            }
+            _parent.Move();
         }
     }
 }
