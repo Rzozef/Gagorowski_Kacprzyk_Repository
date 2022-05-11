@@ -6,17 +6,17 @@ namespace Prezentacja
 {
     namespace Model
     {
-        public abstract class BallAbstract
+        public abstract class AbstractBall
         {
             public abstract float BallX { get; }
             public abstract float BallY { get; }
             public abstract float BallSize { get; }
-            public static BallAbstract CreateBall(ref Logika.BallAbstract parent)
+            public static AbstractBall CreateBall(ref Logika.BallAbstract parent)
             {
                 return new Ball(ref parent);
             }
         }
-        internal class Ball : BallAbstract
+        internal class Ball : AbstractBall
         {
             private Logika.BallAbstract _parent;
             public override float BallX

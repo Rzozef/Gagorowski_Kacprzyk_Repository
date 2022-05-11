@@ -5,7 +5,7 @@ namespace Logika
 {
     namespace Tests
     {
-        public class BallsTests
+/*        public class BallsTests
         {
             private BallAbstract test_ball1;
             [SetUp]
@@ -32,6 +32,6 @@ namespace Logika
                 Assert.AreEqual(100, test_ball1.X);
                 Assert.AreEqual(100, test_ball1.Y);
             }
-        }
+        }*/
     }
 }

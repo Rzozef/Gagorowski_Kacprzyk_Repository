@@ -4,7 +4,7 @@ namespace Logika
 {
     namespace Tests
     {
-        public class LogikaApiTests
+/*        public class LogikaApiTests
         {
             private LogikaAbstractApi api;
             private BallsRepositoryApi<BallAbstract> balls_copy;
@@ -45,6 +45,6 @@ namespace Logika
                         Assert.AreNotEqual(api.GetBalls()[i].X, balls_copy[i].X);
                     }
             }
-        }
+        }*/
     }
 }

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace Logika
+namespace Dane
 {
     public enum Direction
     {
@@ -22,48 +22,50 @@ namespace Logika
         public abstract event PropertyChangedEventHandler PropertyChanged;
 
         public abstract void UpdatePosition(Direction direction);
-        public static BallAbstract CreateBall(Dane.BallAbstract ball)
+        public static BallAbstract CreateBall(float x, float y, float size)
         {
-            return new Ball(ball);
+            return new Ball(x, y, size);
         }
     }
 
     internal class Ball : BallAbstract
     {
-        private Dane.BallAbstract _parent { get; set; }
+        private float x { get; set; }
+        private float y { get; set; }
+        private float size { get; set; }
 
         public override float X
         {
-            get => _parent.X;
+            get => x;
             set
             {
-                if (value != X)
+                if (value != x)
                 {
-                    _parent.X = value;
+                    x = value;
                     NotifyPropertyChanged();
                 }
             }
         }
         public override float Y
         {
-            get => _parent.Y;
+            get => y;
             set
             {
-                if (value != _parent.Y)
+                if (value != y)
                 {
-                    _parent.Y = value;
+                    y = value;
                     NotifyPropertyChanged();
                 }
             }
         }
         public override float Size
         {
-            get => _parent.Size;
+            get => size;
             set
             {
-                if (value != _parent.Size)
+                if (value != size)
                 {
-                    _parent.Size = value;
+                    size = value;
                     NotifyPropertyChanged();
                 }
             }
@@ -78,14 +80,16 @@ namespace Logika
             }
         }
 
-        internal Ball(Dane.BallAbstract ball)
+        internal Ball(float x, float y, float size)
         {
-            _parent = ball;
+            this.x = x;
+            this.y = y;
+            this.size = size;
         }
 
         public override void UpdatePosition(Direction direction)
         {
-            switch (direction)
+            switch(direction)
             {
                 case Direction.UP:
                     Y++;

@@ -12,7 +12,7 @@ namespace Prezentacja
         public abstract class ModelAbstractApi
         {
             protected abstract LogikaAbstractApi Logic { get; }
-            public abstract ObservableCollection<BallAbstract> GetBalls();
+            public abstract ObservableCollection<AbstractBall> GetBalls();
             public abstract void CreateBalls(uint count);
             public abstract uint WindowWidth { get; set; }
             public abstract uint WindowHeight { get; set; }
@@ -29,7 +29,7 @@ namespace Prezentacja
         }
         internal class ModelApi : ModelAbstractApi
         {
-            private BallsRepository<BallAbstract> _balls;
+            private BallsRepository<AbstractBall> _balls;
             private LogikaAbstractApi _logic;
             private uint _windowWidth;
             private uint _windowHeight;
@@ -39,7 +39,7 @@ namespace Prezentacja
             {
                 get => _logic;
             }
-            public override ObservableCollection<BallAbstract> GetBalls()
+            public override ObservableCollection<AbstractBall> GetBalls()
             {
                 return _balls;
             }
@@ -61,11 +61,11 @@ namespace Prezentacja
                 foreach (var b in logicBalls)
                 {
                     var o = b;
-                    _balls.Add(BallAbstract.CreateBall(ref o));
+                    _balls.Add(Ball.CreateBall(ref o));
                 }
-                _balls.RegisterPropertyChanged(_logic.GetBalls());
+                _balls.RegisterPropertyChanged(_logic.NotifyCollectionChanged);
 
-                _logic.UpdateBallPosition(1);
+                _logic.UpdateBallsPosition(1);
             }
             public override uint WindowWidth
             {
@@ -91,7 +91,7 @@ namespace Prezentacja
                 BeginSimulationClicked = false;
 
                 _logic = logika;
-                _balls = new BallsRepository<BallAbstract>();
+                _balls = new BallsRepository<AbstractBall>();
             }
         }
     }

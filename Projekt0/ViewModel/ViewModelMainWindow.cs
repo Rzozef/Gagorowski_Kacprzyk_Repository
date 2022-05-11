@@ -17,7 +17,7 @@ namespace Prezentacja
 
             public ICommand SimulationButtonClicked { get; set; }
 
-            public ObservableCollection<BallAbstract> Balls
+            public ObservableCollection<AbstractBall> Balls
             {
                 get => _modelAbstractApi.GetBalls();
             }
