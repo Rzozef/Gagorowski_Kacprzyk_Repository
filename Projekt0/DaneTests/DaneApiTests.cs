@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using System.Numerics;
 using Dane;
 
 namespace DaneTests;
