@@ -4,9 +4,11 @@
 
 /.vs
 [Rr]elease/
+[Dd]ebug
 x64/
 [Bb]in/
 [Oo]bj/
 .suo
 /Projekt0/.vs
 /Projekt0/.idea
+!Debug/netstandard2.1/Logika.AssemblyInfo.cs
