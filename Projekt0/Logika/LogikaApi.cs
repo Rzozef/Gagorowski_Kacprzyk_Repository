@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Logika
@@ -15,7 +16,6 @@ namespace Logika
         public abstract void CreateBalls(uint count);
         public abstract IList<BallAbstract> GetBalls();
         public abstract void MoveBalls();
-        public abstract void UpdateBallsPosition(int interval_ms);
         public abstract INotifyCollectionChanged NotifyCollectionChanged { get; }
         public static LogikaAbstractApi CreateApi(uint width, uint height)
         {
@@ -29,6 +29,8 @@ namespace Logika
     internal class LogikaApi : LogikaAbstractApi
     {
         private DaneAbstractApi _dane;
+        private Mutex _mutex;
+        private bool _areBallsMoving;
         private CollisionHandler CollisionHandler { get; set; }
         public override uint screen_width { get; }
         public override uint screen_height { get; }
@@ -49,8 +51,10 @@ namespace Logika
             screen_width = width;
             screen_height = height;
             _dane = dane;
-            CollisionHandler = new CollisionHandler(width, height, dane.GetBalls());
+            CollisionHandler = new CollisionHandler(width, height, dane);
             _dane.BallMoved += BallMoveEnd;
+            _mutex = new Mutex();
+            _areBallsMoving = false;
         }
 
         public override void CreateBalls(uint count)
@@ -70,26 +74,20 @@ namespace Logika
 
         public override void MoveBalls()
         {
-            _dane.MoveBalls();
-        }
-
-        public override async void UpdateBallsPosition(int interval_ms)
-        {
-            await Task.Run(() =>
+            if (!_areBallsMoving)
             {
-                while (true)
-                {
-                    MoveBalls();
-                    Task.Delay(interval_ms).Wait();
-                }
-            });
+                _areBallsMoving = true;
+                _dane.MoveBalls();
+            }
         }
 
         private void BallMoveEnd(object obj, BallEventArgs args)
         {
             Dane.BallAbstract ball = args.Ball;
-            CollisionHandler.HandleBorderCollision(ball);
+            _mutex.WaitOne();
             CollisionHandler.HandleBallsCollision(ball);
+            CollisionHandler.HandleBorderCollision(ball);
+            _mutex.ReleaseMutex();
         }
     }
 }

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Dane
 {
@@ -102,10 +103,10 @@ namespace Dane
 
         public override void Move()
         {
-            X += Speed.X * Mass;
-            Y += Speed.Y * Mass;
             BallEventArgs args = new BallEventArgs(this);
             Moved?.Invoke(this, args);
+            X += Speed.X;
+            Y += Speed.Y;
         }
     }
 }
