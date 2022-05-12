@@ -11,4 +11,4 @@ x64/
 .suo
 /Projekt0/.vs
 /Projekt0/.idea
-!/Projekt0/.Debug/netstandard2.1/Logika.AssemblyInfo.cs
+!/Projekt0/Logika/obj/Debug/netstandard2.1/Logika.AssemblyInfo.cs
