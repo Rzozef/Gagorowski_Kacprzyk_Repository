@@ -27,10 +27,26 @@ namespace Logika
             if (ball.X <= 0 || ball.X + ball.Size >= Width)
             {
                 ball.Speed = new Vector2(-ball.Speed.X, ball.Speed.Y);
+                if (ball.X <= 0)
+                {
+                    ball.X *= -1;
+                }
+                else
+                {
+                    ball.X -= ball.X + ball.Size - Width;
+                }
             }
             if (ball.Y <= 0 || ball.Y + ball.Size >= Height)
             {
                 ball.Speed = new Vector2(ball.Speed.X, -ball.Speed.Y);
+                if (ball.Y <= 0)
+                {
+                    ball.Y *= -1;
+                }
+                else
+                {
+                    ball.Y -= ball.Y + ball.Size - Height;
+                }
             }
         }
 
