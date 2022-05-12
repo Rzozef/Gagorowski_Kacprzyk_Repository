@@ -6,11 +6,13 @@ namespace DaneTests;
 
 public class BallTests
 {
+    private DaneAbstractApi dane;
     private BallAbstract test_ball;
     [SetUp]
     public void Setup()
     {
-        test_ball = BallAbstract.CreateBall(10, 10, 10, 10, new Vector2(5, 5));
+        dane = DaneAbstractApi.CreateApi(200, 200);
+        test_ball = BallAbstract.CreateBall(10, 10, 10, 10, new Vector2(5, 5), dane);
     }
 
     [Test]

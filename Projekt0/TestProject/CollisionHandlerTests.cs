@@ -9,6 +9,7 @@ namespace LogikaTest;
 public class CollisionHandlerTests
 {
     private CollisionHandler handler;
+    private DaneAbstractApi dane;
     private BallAbstract ball1;
     private BallAbstract ball2;
     private BallAbstract ball3;
@@ -16,11 +17,12 @@ public class CollisionHandlerTests
     [SetUp]
     public void Setup()
     {
+        dane = DaneAbstractApi.CreateApi(200, 200);
         handler = new CollisionHandler(200, 200, DaneAbstractApi.CreateApi(200, 200));
-        ball1 = BallAbstract.CreateBall(-1, 1, 5, 5, new Vector2(2, 2));
-        ball2 = BallAbstract.CreateBall(5, 1, 5, 5, new Vector2(2, 2));
-        ball3 = BallAbstract.CreateBall(1, -1, 5, 5, new Vector2(2, 2));
-        ball4 = BallAbstract.CreateBall(1, 5, 5, 5, new Vector2(1, 2));
+        ball1 = BallAbstract.CreateBall(-1, 1, 5, 5, new Vector2(2, 2), dane);
+        ball2 = BallAbstract.CreateBall(5, 1, 5, 5, new Vector2(2, 2), dane);
+        ball3 = BallAbstract.CreateBall(1, -1, 5, 5, new Vector2(2, 2), dane);
+        ball4 = BallAbstract.CreateBall(1, 5, 5, 5, new Vector2(1, 2), dane);
     }
 
     [Test]

@@ -47,7 +47,7 @@ namespace Dane
                     float randomSize = random.Next(5, 20);
                     float random_x = random.Next(0, (int)(_board.Width - randomSize));
                     float random_y = random.Next(0, (int)(_board.Height - randomSize));
-                    Vector2 randomSpeed = new Vector2(random.Next(-5, 5), random.Next(-5, 5));
+                    Vector2 randomSpeed = new Vector2(random.Next(-3, 3), random.Next(-3, 3));
                     ball = BallAbstract.CreateBall(random_x, random_y, randomSize, (uint)(Math.Pow(randomSize/2, 2) * Math.PI), randomSpeed, this);
                 } while (GetCollidingBalls(ball).Count > 0);
                 ball.Moved += (sender, argv) =>
