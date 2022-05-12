@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Numerics;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Dane
@@ -12,6 +13,8 @@ namespace Dane
         public abstract void CreateBalls(uint count);
         public abstract ObservableCollection<BallAbstract> GetBalls();
         public abstract void MoveBalls();
+        public abstract void Lock();
+        public abstract void Unlock();
         public abstract IList<BallAbstract> GetCollidingBalls(BallAbstract ball);
         public abstract event EventHandler<BallEventArgs> ?BallMoved;
 
@@ -23,6 +26,7 @@ namespace Dane
     internal class DaneApi : DaneAbstractApi
     {
         private Board _board;
+        private Mutex _mutex;
         public override event EventHandler<BallEventArgs>? BallMoved;
 
         private BallsRepository<BallAbstract> Balls
@@ -34,6 +38,15 @@ namespace Dane
         public DaneApi(uint width, uint height)
         {
             _board = new Board(width, height);
+            _mutex = new Mutex();
+        }
+        public override void Lock()
+        {
+            _mutex.WaitOne();
+        }
+        public override void Unlock()
+        {
+            _mutex.ReleaseMutex();
         }
 
         public override void CreateBalls(uint count)
@@ -47,7 +60,7 @@ namespace Dane
                     float random_x = random.Next(0, (int)(_board.Width - 10));
                     float random_y = random.Next(0, (int)(_board.Height - 10));
                     Vector2 randomSpeed = new Vector2(random.Next(-5, 5), random.Next(-5, 5));
-                    ball = BallAbstract.CreateBall(random_x, random_y, 15, 0.5f, randomSpeed);
+                    ball = BallAbstract.CreateBall(random_x, random_y, 15, 0.5f, randomSpeed, this);
                 } while (GetCollidingBalls(ball).Count > 0);
                 ball.Moved += (sender, argv) =>
                 {

@@ -21,9 +21,9 @@ namespace Dane
         public abstract event PropertyChangedEventHandler PropertyChanged;
 
         public abstract void Move();
-        public static BallAbstract CreateBall(float x, float y, float size, float mass, Vector2 speed)
+        public static BallAbstract CreateBall(float x, float y, float size, float mass, Vector2 speed, DaneAbstractApi dane)
         {
-            return new Ball(x, y, size, mass, speed);
+            return new Ball(x, y, size, mass, speed, dane);
         }
     }
 
@@ -34,6 +34,7 @@ namespace Dane
         private float _size { get; set; }
         private float _mass { get; set; }
         private Vector2 _position { get; set; }
+        private DaneAbstractApi _dane;
         public override event EventHandler<BallEventArgs>? Moved;
 
         public override float X
@@ -92,21 +93,24 @@ namespace Dane
             }
         }
 
-        internal Ball(float x, float y, float size, float mass, Vector2 speed)
+        internal Ball(float x, float y, float size, float mass, Vector2 speed, DaneAbstractApi dane)
         {
             X = x;
             Y = y;
             Size = size;
             Mass = mass;
             Speed = speed;
+            _dane = dane;
         }
 
         public override void Move()
         {
-            BallEventArgs args = new BallEventArgs(this);
-            Moved?.Invoke(this, args);
+            _dane.Lock();
             X += Speed.X;
             Y += Speed.Y;
+            _dane.Unlock();
+            BallEventArgs args = new BallEventArgs(this);
+            Moved?.Invoke(this, args);
         }
     }
 }
