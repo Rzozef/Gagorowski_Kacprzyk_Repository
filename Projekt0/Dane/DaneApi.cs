@@ -42,7 +42,7 @@ namespace Dane
                 float random_x = random.Next(10, (int)(_board.Width - 10));
                 float random_y = random.Next(10, (int)(_board.Height - 10));
                 Vector2 randomSpeed = new Vector2(random.Next(-10, 10), random.Next(-10, 10));
-                var ball = BallAbstract.CreateBall(random_x, random_y, 10, randomSpeed);
+                var ball = BallAbstract.CreateBall(random_x, random_y, 10, 0.5f, randomSpeed);
                 ball.Moved += (sender, argv) =>
                 {
                     var args = new BallEventArgs(argv.Ball);

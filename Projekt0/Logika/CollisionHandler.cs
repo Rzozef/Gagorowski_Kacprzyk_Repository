@@ -24,11 +24,11 @@ namespace Logika
 
         public void HandleBorderCollision(Dane.BallAbstract ball)
         {
-            if (ball.X + ball.Size >= Width || ball.X + ball.Size <= 0)
+            if (ball.X <= 0 || ball.X + ball.Size >= Width)
             {
                 ball.Speed = new Vector2(-ball.Speed.X, ball.Speed.Y);
             }
-            if (ball.Y + ball.Size >= Height || ball.Y + ball.Size <= 0)
+            if (ball.Y <= 0 || ball.Y + ball.Size >= Height)
             {
                 ball.Speed = new Vector2(ball.Speed.X, -ball.Speed.Y);
             }
