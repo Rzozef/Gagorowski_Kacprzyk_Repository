@@ -26,6 +26,7 @@ namespace Logika
             return new LogikaApi(width, height, dane);
         }
     }
+
     internal class LogikaApi : LogikaAbstractApi
     {
         private DaneAbstractApi _dane;

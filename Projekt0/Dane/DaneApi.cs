@@ -19,6 +19,7 @@ namespace Dane
             return new DaneApi(width, height);
         }
     }
+
     internal class DaneApi : DaneAbstractApi
     {
         private Board _board;
