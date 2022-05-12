@@ -10,7 +10,6 @@
 
 using System;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("Logika")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
@@ -19,7 +18,6 @@ using System.Runtime.CompilerServices;
 [assembly: System.Reflection.AssemblyProductAttribute("Logika")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Logika")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
-[assembly: InternalsVisibleTo("LogikaTests")]
 
 // Wygenerowane przez klasę WriteCodeFragment programu MSBuild.
 

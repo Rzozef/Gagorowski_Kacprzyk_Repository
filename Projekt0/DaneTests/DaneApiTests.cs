@@ -21,10 +21,10 @@ public class DaneApiTests
         api.CreateBalls(2);
         Assert.AreEqual(api.GetBalls().Count, 5);
     }
-    // [Test]
-    // public void GetCollidingBallsTests()
-    // {
-    //     api.CreateBalls(100);
-    //     Assert.Greater(api.GetCollidingBalls(api.GetBalls()[0]).Count, 0);
-    // }
+    [Test]
+    public void GetCollidingBallsTests()
+    {
+        api.CreateBalls(100);
+        Assert.AreEqual(api.GetCollidingBalls(api.GetBalls()[0]).Count, 0);
+    }
 }

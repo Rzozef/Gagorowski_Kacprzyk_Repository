@@ -6,6 +6,8 @@
 [Rr]elease/
 x64/
 [Bb]in/
+[Oo]bj/
+[Dd]ebug/
 .suo
 /Projekt0/.vs
 /Projekt0/.idea

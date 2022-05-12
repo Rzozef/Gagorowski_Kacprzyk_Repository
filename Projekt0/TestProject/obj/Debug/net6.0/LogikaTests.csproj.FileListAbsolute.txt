@@ -102,3 +102,12 @@ C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\TestProject\
 C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\TestProject\obj\Debug\net6.0\LogikaTests.pdb
 C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\TestProject\obj\Debug\net6.0\LogikaTests.genruntimeconfig.cache
 C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\TestProject\obj\Debug\net6.0\ref\LogikaTests.dll
+C:\Users\Student\Source\Repos\Gagorowski_Kacprzyk_Repository\Projekt0\TestProject\bin\Debug\net6.0\CoverletSourceRootsMapping
+C:\Users\Student\Source\Repos\Gagorowski_Kacprzyk_Repository\Projekt0\TestProject\obj\Debug\net6.0\LogikaTests.csproj.AssemblyReference.cache
+C:\Users\Student\Source\Repos\Gagorowski_Kacprzyk_Repository\Projekt0\TestProject\obj\Debug\net6.0\LogikaTests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Student\Source\Repos\Gagorowski_Kacprzyk_Repository\Projekt0\TestProject\obj\Debug\net6.0\LogikaTests.AssemblyInfoInputs.cache
+C:\Users\Student\Source\Repos\Gagorowski_Kacprzyk_Repository\Projekt0\TestProject\obj\Debug\net6.0\LogikaTests.AssemblyInfo.cs
+C:\Users\Student\Source\Repos\Gagorowski_Kacprzyk_Repository\Projekt0\TestProject\obj\Debug\net6.0\LogikaTests.csproj.CoreCompileInputs.cache
+C:\Users\Student\Source\Repos\Gagorowski_Kacprzyk_Repository\Projekt0\TestProject\obj\Debug\net6.0\LogikaTests.dll
+C:\Users\Student\Source\Repos\Gagorowski_Kacprzyk_Repository\Projekt0\TestProject\obj\Debug\net6.0\refint\LogikaTests.dll
+C:\Users\Student\Source\Repos\Gagorowski_Kacprzyk_Repository\Projekt0\TestProject\obj\Debug\net6.0\LogikaTests.pdb

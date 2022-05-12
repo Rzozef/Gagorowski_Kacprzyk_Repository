@@ -106,8 +106,6 @@ namespace Dane
             Y += Speed.Y;
             BallEventArgs args = new BallEventArgs(this);
             Moved?.Invoke(this, args);
-            X += Speed.X;
-            Y += Speed.Y;
         }
     }
 }

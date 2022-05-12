@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "OjqORzgMYV0CCgJ5oOKI0n7I0KcEdI5bGcMT9/7didMyefqIR9twPx4KzwkLKBVpyjCwyNwZ7UCpHsRo+ls0Zg==",
+  "dgSpecHash": "73Es+Xw99T675kzudw86r5Dq0ipQ6niDMTx2FxCJiqTE4OJhgWlfJz7X3QcBS80k45fk0ulPRjeUUuE+YXunsg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\gonzu\\source\\repos\\Gagorowski_Kacprzyk_Repository\\Projekt0\\View\\View.csproj",
+  "projectFilePath": "C:\\Users\\Student\\Source\\Repos\\Gagorowski_Kacprzyk_Repository\\Projekt0\\View\\View.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\gonzu\\.nuget\\packages\\prism.core\\8.1.97\\prism.core.8.1.97.nupkg.sha512"
+    "C:\\Users\\Student\\.nuget\\packages\\prism.core\\8.1.97\\prism.core.8.1.97.nupkg.sha512"
   ],
   "logs": []
 }

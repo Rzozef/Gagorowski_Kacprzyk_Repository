@@ -8,24 +8,19 @@
     ".NETStandard,Version=v2.1": []
   },
   "packageFolders": {
-    "C:\\Users\\gonzu\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Student\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\gonzu\\source\\repos\\Gagorowski_Kacprzyk_Repository\\Projekt0\\Dane\\Dane.csproj",
+      "projectUniqueName": "C:\\Users\\Student\\Source\\Repos\\Gagorowski_Kacprzyk_Repository\\Projekt0\\Dane\\Dane.csproj",
       "projectName": "Dane",
-      "projectPath": "C:\\Users\\gonzu\\source\\repos\\Gagorowski_Kacprzyk_Repository\\Projekt0\\Dane\\Dane.csproj",
-      "packagesPath": "C:\\Users\\gonzu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\gonzu\\source\\repos\\Gagorowski_Kacprzyk_Repository\\Projekt0\\Dane\\obj\\",
+      "projectPath": "C:\\Users\\Student\\Source\\Repos\\Gagorowski_Kacprzyk_Repository\\Projekt0\\Dane\\Dane.csproj",
+      "packagesPath": "C:\\Users\\Student\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Student\\Source\\Repos\\Gagorowski_Kacprzyk_Repository\\Projekt0\\Dane\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\gonzu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Student\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -65,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

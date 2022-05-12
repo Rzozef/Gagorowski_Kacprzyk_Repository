@@ -24,8 +24,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModel", "ViewModel\ViewModel.csproj", "{38EC0154-3E76-4EC8-A55C-111429CD202A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogikaTests", "TestProject\LogikaTests.csproj", "{BB0BE54F-9112-46E8-9B97-8E85F45DBDDD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaneTests", "DaneTests\DaneTests.csproj", "{E3013EFB-DC29-44B0-91E2-2586E8D6D6FF}"
 EndProject
 Global
@@ -54,10 +52,6 @@ Global
 		{38EC0154-3E76-4EC8-A55C-111429CD202A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38EC0154-3E76-4EC8-A55C-111429CD202A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38EC0154-3E76-4EC8-A55C-111429CD202A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BB0BE54F-9112-46E8-9B97-8E85F45DBDDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB0BE54F-9112-46E8-9B97-8E85F45DBDDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB0BE54F-9112-46E8-9B97-8E85F45DBDDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BB0BE54F-9112-46E8-9B97-8E85F45DBDDD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E3013EFB-DC29-44B0-91E2-2586E8D6D6FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E3013EFB-DC29-44B0-91E2-2586E8D6D6FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3013EFB-DC29-44B0-91E2-2586E8D6D6FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
