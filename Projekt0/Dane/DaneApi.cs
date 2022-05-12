@@ -77,13 +77,18 @@ namespace Dane
         }
         public override IList<BallAbstract> GetCollidingBalls(BallAbstract ball)
         {
-            Vector2 ballCenter = new Vector2(ball.X + ball.Size / 2, ball.Y + ball.Size / 2);
+            float interval = 0.3f;
+            float newBallX = ball.X + ball.Speed.X * interval;
+            float newBallY = ball.Y + ball.Speed.Y * interval;
+            Vector2 ballCenter = new Vector2(newBallX + ball.Size / 2, newBallY+ ball.Size / 2);
             IList<BallAbstract> output = new List<BallAbstract>();
             foreach (var otherBall in GetBalls())
             {
                 if (otherBall != ball)
                 {
-                    Vector2 otherBallCenter = new Vector2(otherBall.X + otherBall.Size / 2, otherBall.Y + otherBall.Size / 2);
+                    float newOtherBallX = otherBall.X + otherBall.Speed.X * interval;
+                    float newOtherBallY = otherBall.Y + otherBall.Speed.Y * interval;
+                    Vector2 otherBallCenter = new Vector2(newOtherBallX + otherBall.Size / 2, newOtherBallY + otherBall.Size / 2);
 
                     double distanceOfCenters = Math.Sqrt(Math.Pow(ballCenter.X - otherBallCenter.X, 2) + Math.Pow(ballCenter.Y - otherBallCenter.Y, 2));
                     if ((ball.Size + otherBall.Size) / 2 >= distanceOfCenters)

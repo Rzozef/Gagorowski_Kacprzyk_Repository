@@ -52,21 +52,12 @@ namespace Logika
 
         public void HandleBallsCollision(Dane.BallAbstract ball1)
         {
-            //float interval = 0.003f;
-            //float nextBall1X = ball1.X + ball1.Speed.X * interval;
-            //float nextBall1Y = ball1.Y + ball1.Speed.Y * interval;
-            float nextBall1X = ball1.X;
-            float nextBall1Y = ball1.Y;
             IList<Dane.BallAbstract> collidingBalls = Dane.GetCollidingBalls(ball1);
-            Vector2 ball1Center = new Vector2(nextBall1X + ball1.Size / 2, nextBall1Y+ ball1.Size / 2);
+            Vector2 ball1Center = new Vector2(ball1.X + ball1.Size / 2, ball1.Y + ball1.Size / 2);
 
             foreach (var ball2 in collidingBalls)
             {
-                //float nextBall2X = ball2.X + ball2.Speed.X * interval;
-                //float nextBall2Y = ball2.Y + ball2.Speed.Y * interval;
-                float nextBall2X = ball2.X;
-                float nextBall2Y = ball2.Y;
-                Vector2 ball2Center = new Vector2(nextBall2X + ball2.Size / 2, nextBall2Y + ball2.Size / 2);
+                Vector2 ball2Center = new Vector2(ball2.X + ball2.Size / 2, ball2.Y + ball2.Size / 2);
 
                 double powDistanceOfCenters = Math.Pow(ball1Center.X - ball2Center.X, 2) + Math.Pow(ball1Center.Y - ball2Center.Y, 2);
 
