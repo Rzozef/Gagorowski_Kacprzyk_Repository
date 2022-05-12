@@ -1,0 +1,15 @@
+C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\Model\bin\Debug\netstandard2.1\Model.deps.json
+C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\Model\bin\Debug\netstandard2.1\Model.dll
+C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\Model\bin\Debug\netstandard2.1\Model.pdb
+C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\Model\bin\Debug\netstandard2.1\Dane.dll
+C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\Model\bin\Debug\netstandard2.1\Logika.dll
+C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\Model\bin\Debug\netstandard2.1\Logika.pdb
+C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\Model\bin\Debug\netstandard2.1\Dane.pdb
+C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\Model\obj\Debug\netstandard2.1\Model.csproj.AssemblyReference.cache
+C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\Model\obj\Debug\netstandard2.1\Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\Model\obj\Debug\netstandard2.1\Model.AssemblyInfoInputs.cache
+C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\Model\obj\Debug\netstandard2.1\Model.AssemblyInfo.cs
+C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\Model\obj\Debug\netstandard2.1\Model.csproj.CoreCompileInputs.cache
+C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\Model\obj\Debug\netstandard2.1\Model.csproj.CopyComplete
+C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\Model\obj\Debug\netstandard2.1\Model.dll
+C:\Users\gonzu\source\repos\Gagorowski_Kacprzyk_Repository\Projekt0\Model\obj\Debug\netstandard2.1\Model.pdb

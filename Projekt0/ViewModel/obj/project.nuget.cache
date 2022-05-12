@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "iT3+BzLB4e4c4XKkIFnSjHApPiwEqGJZ83TvUfKdzOKbfFWIzZNdmLkLZ3k1yQzJMqj5fsFELB0yjmydgfdDIw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\gonzu\\source\\repos\\Gagorowski_Kacprzyk_Repository\\Projekt0\\ViewModel\\ViewModel.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\gonzu\\.nuget\\packages\\prism.core\\8.1.97\\prism.core.8.1.97.nupkg.sha512"
+  ],
+  "logs": []
+}
