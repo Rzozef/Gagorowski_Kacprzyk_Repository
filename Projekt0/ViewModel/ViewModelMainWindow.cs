@@ -6,6 +6,7 @@ using Prezentacja.Model;
 
 using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace Prezentacja
 {
@@ -55,14 +56,17 @@ namespace Prezentacja
                 _modelAbstractApi = ModelAbstractApi.CreateApi(win_width, win_height);
             }
 
-            private void StartSimulation(object value)
+            private async void StartSimulation(object value)
             {
-                uint ballsNumber;
-                if (uint.TryParse(BallsNumber, out ballsNumber))
+                await Task.Factory.StartNew(() =>
                 {
-                    BeginSimulationClicked = true;
-                    _modelAbstractApi.CreateBalls(ballsNumber);
-                }
+                    uint ballsNumber;
+                    if (uint.TryParse(BallsNumber, out ballsNumber))
+                    {
+                        BeginSimulationClicked = true;
+                        _modelAbstractApi.CreateBalls(ballsNumber);
+                    }
+                });
             }
 
             private bool CanStartSimulation(object value)
