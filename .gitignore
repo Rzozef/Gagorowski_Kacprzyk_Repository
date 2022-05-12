@@ -2,6 +2,7 @@
 # Ten plik .gitignore został utworzony automatycznie przez Microsoft(R) Visual Studio.
 ################################################################################
 
+!/Projekt0/Logika/obj/Debug/netstandard2.1/Logika.AssemblyInfo.cs
 /.vs
 [Rr]elease/
 [Dd]ebug
@@ -11,4 +12,4 @@ x64/
 .suo
 /Projekt0/.vs
 /Projekt0/.idea
-!/Projekt0/Logika/obj/Debug/netstandard2.1/Logika.AssemblyInfo.cs
+
