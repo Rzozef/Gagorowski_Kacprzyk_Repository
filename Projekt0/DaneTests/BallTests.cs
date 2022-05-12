@@ -19,7 +19,7 @@ public class BallTests
         Assert.AreEqual(10, test_ball.X);
         Assert.AreEqual(10, test_ball.Y);
         test_ball.Move();
-        Assert.AreEqual(60, test_ball.X);
-        Assert.AreEqual(60, test_ball.Y);
+        Assert.AreEqual(15, test_ball.X);
+        Assert.AreEqual(15, test_ball.Y);
     }
 }
