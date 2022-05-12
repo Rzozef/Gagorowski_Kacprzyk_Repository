@@ -102,10 +102,8 @@ namespace Dane
 
         public override void Move()
         {
-            _dane.Lock();
             X += Speed.X;
             Y += Speed.Y;
-            _dane.Unlock();
             BallEventArgs args = new BallEventArgs(this);
             Moved?.Invoke(this, args);
         }

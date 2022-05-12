@@ -43,10 +43,11 @@ namespace Dane
                 BallAbstract ball;
                 do
                 {
-                    float random_x = random.Next(0, (int)(_board.Width - 10));
-                    float random_y = random.Next(0, (int)(_board.Height - 10));
+                    float randomSize = random.Next(5, 20);
+                    float random_x = random.Next(0, (int)(_board.Width - randomSize));
+                    float random_y = random.Next(0, (int)(_board.Height - randomSize));
                     Vector2 randomSpeed = new Vector2(random.Next(-5, 5), random.Next(-5, 5));
-                    ball = BallAbstract.CreateBall(random_x, random_y, 15, 0.5f, randomSpeed);
+                    ball = BallAbstract.CreateBall(random_x, random_y, randomSize, (uint)(Math.Pow(randomSize/2, 2) * Math.PI), randomSpeed, this);
                 } while (GetCollidingBalls(ball).Count > 0);
                 ball.Moved += (sender, argv) =>
                 {
@@ -63,7 +64,7 @@ namespace Dane
         }
         public override IList<BallAbstract> GetCollidingBalls(BallAbstract ball)
         {
-            float interval = 0.3f;
+            float interval = 0.5f;
             float newBallX = ball.X + ball.Speed.X * interval;
             float newBallY = ball.Y + ball.Speed.Y * interval;
             Vector2 ballCenter = new Vector2(newBallX + ball.Size / 2, newBallY+ ball.Size / 2);
