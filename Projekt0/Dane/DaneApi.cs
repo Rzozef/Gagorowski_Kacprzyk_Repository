@@ -66,19 +66,22 @@ namespace Dane
 
         public override async void MoveBalls()
         {
+            long previousTime = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             while (true)
             {
+                long currentTime = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+                long delta = currentTime - previousTime;
+                previousTime = currentTime;
                 IList<Task> tasks = new List<Task>();
                 foreach (var ball in Balls)
                 {
-                    tasks.Add(Task.Factory.StartNew
-                    (
-                    ball.Move
-                    ));
+                    Task task = new Task(() => ball.Move(delta));
+                    tasks.Add(task);
+                    task.Start();
                 }
                 foreach (Task task in tasks)
                 {
-                    await task;
+                    task.Wait();
                 }
                 writer.WriteBallsPosition(serializer.Serialize());
                 await Task.Delay(10);

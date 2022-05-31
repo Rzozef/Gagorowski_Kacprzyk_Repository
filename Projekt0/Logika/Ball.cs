@@ -15,7 +15,6 @@ namespace Logika
         public abstract Vector2 Speed { get; set; }
         public abstract event PropertyChangedEventHandler PropertyChanged;
 
-        public abstract void Move();
         public static BallAbstract CreateBall(Dane.BallAbstract ball)
         {
             return new Ball(ball);
@@ -81,11 +80,6 @@ namespace Logika
         internal Ball(Dane.BallAbstract ball)
         {
             _parent = ball;
-        }
-
-        public override void Move()
-        {
-            _parent.Move();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Dane
         public abstract Vector2 Speed { get; set; }
         public abstract event PropertyChangedEventHandler PropertyChanged;
 
-        public abstract void Move();
+        public abstract void Move(long delta);
         public static BallAbstract CreateBall(float x, float y, float size, float mass, Vector2 speed, DaneAbstractApi dane)
         {
             return new Ball(x, y, size, mass, speed, dane);
@@ -104,10 +104,10 @@ namespace Dane
             _dane = dane;
         }
 
-        public override void Move()
+        public override void Move(long delta)
         {
-            X += Speed.X;
-            Y += Speed.Y;
+            X += Speed.X * delta / 50;
+            Y += Speed.Y * delta / 50;
             BallEventArgs args = new BallEventArgs(this);
             Moved?.Invoke(this, args);
         }
