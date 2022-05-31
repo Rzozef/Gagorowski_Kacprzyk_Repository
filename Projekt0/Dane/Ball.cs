@@ -45,7 +45,9 @@ namespace Dane
             {
                 if (value != _x)
                 {
+                    _dane.Lock();
                     _x = value;
+                    _dane.Unlock();
                     NotifyPropertyChanged();
                 }
             }
@@ -57,7 +59,9 @@ namespace Dane
             {
                 if (value != _y)
                 {
+                    _dane.Lock();
                     _y = value;
+                    _dane.Unlock();
                     NotifyPropertyChanged();
                 }
             }
@@ -69,7 +73,9 @@ namespace Dane
             {
                 if (value != _size)
                 {
+                    _dane.Lock();
                     _size = value;
+                    _dane.Unlock();
                     NotifyPropertyChanged();
                 }
             }
@@ -77,12 +83,23 @@ namespace Dane
         public override float Mass
         {
             get => _mass;
-            set => _mass = value;
+            set
+            {
+                _dane.Lock();
+                _mass = value;
+                _dane.Unlock();
+            }
+            
         }
         public override Vector2 Speed
         {
             get => _position;
-            set => _position = value;
+            set
+            {
+                _dane.Lock();
+                _position = value;
+                _dane.Unlock();
+            }
         }
 
         public override event PropertyChangedEventHandler PropertyChanged;
@@ -96,12 +113,13 @@ namespace Dane
 
         internal Ball(float x, float y, float size, float mass, Vector2 speed, DaneAbstractApi dane)
         {
+            _dane = dane;
+
             X = x;
             Y = y;
             Size = size;
             Mass = mass;
             Speed = speed;
-            _dane = dane;
         }
 
         public override void Move(long delta)

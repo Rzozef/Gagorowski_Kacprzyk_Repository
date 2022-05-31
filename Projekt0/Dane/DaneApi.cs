@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Numerics;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Dane
@@ -13,6 +14,8 @@ namespace Dane
         public abstract void MoveBalls();
         
         public abstract event EventHandler<BallEventArgs> ?BallMoved;
+        public abstract void Lock();
+        public abstract void Unlock();
 
         public static DaneAbstractApi CreateApi(uint width, uint height)
         {
@@ -25,6 +28,7 @@ namespace Dane
         private Board _board;
         private DataSerializer serializer;
         private DataWriter writer;
+        private Mutex _lock;
         public override event EventHandler<BallEventArgs>? BallMoved;
 
         private BallsRepository<BallAbstract> Balls
@@ -38,6 +42,7 @@ namespace Dane
             _board = new Board(width, height);
             serializer = new DataSerializer(this);
             writer = new DataWriter("logs", "balls");
+            _lock = new Mutex();
         }
 
         public override void CreateBalls(uint count)
@@ -86,6 +91,15 @@ namespace Dane
                 writer.WriteBallsPosition(serializer.Serialize());
                 await Task.Delay(10);
             }
+        }
+
+        public override void Lock()
+        {
+            _lock.WaitOne();
+        }
+        public override void Unlock()
+        {
+            _lock.ReleaseMutex();
         }
     }
 }
