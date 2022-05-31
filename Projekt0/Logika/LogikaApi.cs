@@ -113,8 +113,10 @@ namespace Logika
         {
             Dane.BallAbstract ball = args.Ball;
             _mutex.WaitOne();
+            _dane.Lock();
             CollisionHandler.HandleBallsCollision(ball);
             CollisionHandler.HandleBorderCollision(ball);
+            _dane.Unlock();
             _mutex.ReleaseMutex();
         }
     }
