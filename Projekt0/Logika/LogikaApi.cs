@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,6 +18,7 @@ namespace Logika
         public abstract IList<BallAbstract> GetBalls();
         public abstract void MoveBalls();
         public abstract INotifyCollectionChanged NotifyCollectionChanged { get; }
+        public abstract IList<Dane.BallAbstract> GetCollidingBalls(Dane.BallAbstract ball);
         public static LogikaAbstractApi CreateApi(uint width, uint height)
         {
             return new LogikaApi(width, height);
@@ -52,7 +54,7 @@ namespace Logika
             screen_width = width;
             screen_height = height;
             _dane = dane;
-            CollisionHandler = new CollisionHandler(width, height, dane);
+            CollisionHandler = new CollisionHandler(width, height, this);
             _dane.BallMoved += BallMoveEnd;
             _mutex = new Mutex();
             _areBallsMoving = false;
@@ -61,6 +63,31 @@ namespace Logika
         public override void CreateBalls(uint count)
         {
             _dane.CreateBalls(count);
+        }
+
+        public override IList<Dane.BallAbstract> GetCollidingBalls(Dane.BallAbstract ball)
+        {
+            float interval = 0.5f;
+            float newBallX = ball.X + ball.Speed.X * interval;
+            float newBallY = ball.Y + ball.Speed.Y * interval;
+            Vector2 ballCenter = new Vector2(newBallX + ball.Size / 2, newBallY + ball.Size / 2);
+            IList<Dane.BallAbstract> output = new List<Dane.BallAbstract>();
+            foreach (var otherBall in _dane.GetBalls())
+            {
+                if (otherBall != ball)
+                {
+                    float newOtherBallX = otherBall.X + otherBall.Speed.X * interval;
+                    float newOtherBallY = otherBall.Y + otherBall.Speed.Y * interval;
+                    Vector2 otherBallCenter = new Vector2(newOtherBallX + otherBall.Size / 2, newOtherBallY + otherBall.Size / 2);
+
+                    double distanceOfCenters = Math.Sqrt(Math.Pow(ballCenter.X - otherBallCenter.X, 2) + Math.Pow(ballCenter.Y - otherBallCenter.Y, 2));
+                    if ((ball.Size + otherBall.Size) / 2 >= distanceOfCenters)
+                    {
+                        output.Add(otherBall);
+                    }
+                }
+            }
+            return output;
         }
 
         public override IList<BallAbstract> GetBalls()

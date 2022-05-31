@@ -11,7 +11,7 @@ namespace Dane
         public abstract void CreateBalls(uint count);
         public abstract ObservableCollection<BallAbstract> GetBalls();
         public abstract void MoveBalls();
-        public abstract IList<BallAbstract> GetCollidingBalls(BallAbstract ball);
+        
         public abstract event EventHandler<BallEventArgs> ?BallMoved;
 
         public static DaneAbstractApi CreateApi(uint width, uint height)
@@ -41,15 +41,11 @@ namespace Dane
             Random random = new Random();
             for (uint i = 0; i < count; ++i)
             {
-                BallAbstract ball;
-                do
-                {
-                    float randomSize = random.Next(5, 20);
-                    float random_x = random.Next(0, (int)(_board.Width - randomSize));
-                    float random_y = random.Next(0, (int)(_board.Height - randomSize));
-                    Vector2 randomSpeed = new Vector2(random.Next(-3, 3), random.Next(-3, 3));
-                    ball = BallAbstract.CreateBall(random_x, random_y, randomSize, (uint)(Math.Pow(randomSize/2, 2) * Math.PI), randomSpeed, this);
-                } while (GetCollidingBalls(ball).Count > 0);
+                float randomSize = random.Next(5, 20);
+                float random_x = random.Next(0, (int)(_board.Width - randomSize));
+                float random_y = random.Next(0, (int)(_board.Height - randomSize));
+                Vector2 randomSpeed = new Vector2(random.Next(-3, 3), random.Next(-3, 3));
+                BallAbstract ball = BallAbstract.CreateBall(random_x, random_y, randomSize, (uint)(Math.Pow(randomSize/2, 2) * Math.PI), randomSpeed, this);
                 ball.Moved += (sender, argv) =>
                 {
                     var args = new BallEventArgs(argv.Ball);
@@ -62,30 +58,6 @@ namespace Dane
         public override ObservableCollection<BallAbstract> GetBalls()
         {
             return Balls;
-        }
-        public override IList<BallAbstract> GetCollidingBalls(BallAbstract ball)
-        {
-            float interval = 0.5f;
-            float newBallX = ball.X + ball.Speed.X * interval;
-            float newBallY = ball.Y + ball.Speed.Y * interval;
-            Vector2 ballCenter = new Vector2(newBallX + ball.Size / 2, newBallY+ ball.Size / 2);
-            IList<BallAbstract> output = new List<BallAbstract>();
-            foreach (var otherBall in GetBalls())
-            {
-                if (otherBall != ball)
-                {
-                    float newOtherBallX = otherBall.X + otherBall.Speed.X * interval;
-                    float newOtherBallY = otherBall.Y + otherBall.Speed.Y * interval;
-                    Vector2 otherBallCenter = new Vector2(newOtherBallX + otherBall.Size / 2, newOtherBallY + otherBall.Size / 2);
-
-                    double distanceOfCenters = Math.Sqrt(Math.Pow(ballCenter.X - otherBallCenter.X, 2) + Math.Pow(ballCenter.Y - otherBallCenter.Y, 2));
-                    if ((ball.Size + otherBall.Size) / 2 >= distanceOfCenters)
-                    {
-                        output.Add(otherBall);
-                    }
-                }
-            }
-            return output;
         }
 
         public override async void MoveBalls()

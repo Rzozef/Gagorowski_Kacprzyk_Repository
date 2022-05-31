@@ -13,13 +13,13 @@ namespace Logika
         private uint Width { get; set; }
         private uint Height { get; set; }
 
-        private DaneAbstractApi Dane { get; set; }
+        private LogikaAbstractApi Logika { get; set; }
 
-        public CollisionHandler(uint width, uint height, DaneAbstractApi _dane)
+        public CollisionHandler(uint width, uint height, LogikaAbstractApi _logika)
         {
             Width = width;
             Height = height;
-            Dane = _dane;
+            Logika = _logika;
         }
 
         public void HandleBorderCollision(Dane.BallAbstract ball)
@@ -55,7 +55,7 @@ namespace Logika
             float interval = 0.3f;
             float nextBall1X = ball1.X + ball1.Speed.X * interval;
             float nextBall1Y = ball1.Y + ball1.Speed.Y * interval;
-            IList<Dane.BallAbstract> collidingBalls = Dane.GetCollidingBalls(ball1);
+            IList<Dane.BallAbstract> collidingBalls = Logika.GetCollidingBalls(ball1);
             Vector2 ball1Center = new Vector2(nextBall1X + ball1.Size / 2, nextBall1Y+ ball1.Size / 2);
 
             foreach (var ball2 in collidingBalls)
