@@ -23,6 +23,8 @@ namespace Dane
     internal class DaneApi : DaneAbstractApi
     {
         private Board _board;
+        private DataSerializer serializer;
+        private DataWriter writer;
         public override event EventHandler<BallEventArgs>? BallMoved;
 
         private BallsRepository<BallAbstract> Balls
@@ -34,6 +36,8 @@ namespace Dane
         public DaneApi(uint width, uint height)
         {
             _board = new Board(width, height);
+            serializer = new DataSerializer(this);
+            writer = new DataWriter("logs", "balls");
         }
 
         public override void CreateBalls(uint count)
@@ -76,6 +80,7 @@ namespace Dane
                 {
                     await task;
                 }
+                writer.WriteBallsPosition(serializer.Serialize());
                 await Task.Delay(10);
             }
         }
