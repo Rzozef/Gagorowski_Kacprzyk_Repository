@@ -20,7 +20,7 @@ public class BallTests
     {
         Assert.AreEqual(10, test_ball.X);
         Assert.AreEqual(10, test_ball.Y);
-        test_ball.Move();
+        test_ball.Move(50);
         Assert.AreEqual(15, test_ball.X);
         Assert.AreEqual(15, test_ball.Y);
     }
