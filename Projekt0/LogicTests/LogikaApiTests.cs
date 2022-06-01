@@ -6,7 +6,7 @@ using BallAbstract = Dane.BallAbstract;
 
 namespace LogicTests;
 
-public class Tests
+public class LogikaApiTests
 {
     private LogikaAbstractApi api;
     private BallAbstract ball;
