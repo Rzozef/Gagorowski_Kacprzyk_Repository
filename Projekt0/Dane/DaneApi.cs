@@ -69,27 +69,11 @@ namespace Dane
             return Balls;
         }
 
-        public override async void MoveBalls()
+        public override void MoveBalls()
         {
-            long previousTime = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
-            while (true)
+            foreach (Ball ball in Balls)
             {
-                long currentTime = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
-                long delta = currentTime - previousTime;
-                previousTime = currentTime;
-                IList<Task> tasks = new List<Task>();
-                foreach (var ball in Balls)
-                {
-                    Task task = new Task(() => ball.Move(delta));
-                    tasks.Add(task);
-                    task.Start();
-                }
-                foreach (Task task in tasks)
-                {
-                    task.Wait();
-                }
-                writer.WriteBallsPosition(serializer.Serialize());
-                await Task.Delay(10);
+                Task.Factory.StartNew(ball.Move);
             }
         }
 

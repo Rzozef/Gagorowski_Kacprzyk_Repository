@@ -4,6 +4,7 @@ using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace Dane
 {
@@ -20,7 +21,7 @@ namespace Dane
         public abstract Vector2 Speed { get; set; }
         public abstract event PropertyChangedEventHandler PropertyChanged;
 
-        public abstract void Move(long delta);
+        public abstract void Move();
         public static BallAbstract CreateBall(float x, float y, float size, float mass, Vector2 speed, DaneAbstractApi dane)
         {
             return new Ball(x, y, size, mass, speed, dane);
@@ -120,14 +121,29 @@ namespace Dane
             Size = size;
             Mass = mass;
             Speed = speed;
-        }
 
-        public override void Move(long delta)
-        {
-            X += Speed.X * delta / 50;
-            Y += Speed.Y * delta / 50;
             BallEventArgs args = new BallEventArgs(this);
             Moved?.Invoke(this, args);
+        }
+
+        public async override void Move()
+        {
+            long previousTime = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+            while (true)
+            {
+                long currentTime = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+                long delta = currentTime - previousTime;
+                previousTime = currentTime;
+
+                X += Speed.X * delta / 50;
+                Y += Speed.Y * delta / 50;
+
+                BallEventArgs args = new BallEventArgs(this);
+                Moved?.Invoke(this, args);
+
+                //writer.WriteBallsPosition(serializer.Serialize());
+                await Task.Delay(10);
+            }
         }
 
         public void GetObjectData(SerializationInfo info, StreamingContext context)
