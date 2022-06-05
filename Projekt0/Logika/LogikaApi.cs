@@ -68,16 +68,16 @@ namespace Logika
         public override IList<Dane.BallAbstract> GetCollidingBalls(Dane.BallAbstract ball)
         {
             float interval = 0.5f;
-            float newBallX = ball.X + ball.Speed.X * interval;
-            float newBallY = ball.Y + ball.Speed.Y * interval;
+            float newBallX = ball.Position.X + ball.Speed.X * interval;
+            float newBallY = ball.Position.Y + ball.Speed.Y * interval;
             Vector2 ballCenter = new Vector2(newBallX + ball.Size / 2, newBallY + ball.Size / 2);
             IList<Dane.BallAbstract> output = new List<Dane.BallAbstract>();
             foreach (var otherBall in _dane.GetBalls())
             {
                 if (otherBall != ball)
                 {
-                    float newOtherBallX = otherBall.X + otherBall.Speed.X * interval;
-                    float newOtherBallY = otherBall.Y + otherBall.Speed.Y * interval;
+                    float newOtherBallX = otherBall.Position.X + otherBall.Speed.X * interval;
+                    float newOtherBallY = otherBall.Position.Y + otherBall.Speed.Y * interval;
                     Vector2 otherBallCenter = new Vector2(newOtherBallX + otherBall.Size / 2, newOtherBallY + otherBall.Size / 2);
 
                     double distanceOfCenters = Math.Sqrt(Math.Pow(ballCenter.X - otherBallCenter.X, 2) + Math.Pow(ballCenter.Y - otherBallCenter.Y, 2));

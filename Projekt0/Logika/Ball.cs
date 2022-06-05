@@ -9,9 +9,9 @@ namespace Logika
 {
     public abstract class BallAbstract : INotifyPropertyChanged
     {
-        public abstract float X { get; set; }
-        public abstract float Y { get; set; }
-        public abstract float Size { get; set; }
+        public abstract float X { get; }
+        public abstract float Y { get; }
+        public abstract float Size { get; }
         public abstract Vector2 Speed { get; set; }
         public abstract event PropertyChangedEventHandler PropertyChanged;
 
@@ -27,39 +27,15 @@ namespace Logika
 
         public override float X
         {
-            get => _parent.X;
-            set
-            {
-                if (value != _parent.X)
-                {
-                    _parent.X = value;
-                    NotifyPropertyChanged();
-                }
-            }
+            get => _parent.Position.X;
         }
         public override float Y
         {
-            get => _parent.Y;
-            set
-            {
-                if (value != _parent.Y)
-                {
-                    _parent.Y = value;
-                    NotifyPropertyChanged();
-                }
-            }
+            get => _parent.Position.Y;
         }
         public override float Size
         {
             get => _parent.Size;
-            set
-            {
-                if (value != _parent.Size)
-                {
-                    _parent.Size = value;
-                    NotifyPropertyChanged();
-                }
-            }
         }
 
         public override Vector2 Speed

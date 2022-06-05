@@ -24,28 +24,28 @@ namespace Logika
 
         public void HandleBorderCollision(Dane.BallAbstract ball)
         {
-            if (ball.X <= 0 || ball.X + ball.Size >= Width)
+            if (ball.Position.X <= 0 || ball.Position.X + ball.Size >= Width)
             {
                 ball.Speed = new Vector2(-ball.Speed.X, ball.Speed.Y);
-                if (ball.X <= 0)
+                if (ball.Position.X <= 0)
                 {
-                    ball.X *= -1;
+                    ball.Position *= new Vector2(-1, 1);
                 }
                 else
                 {
-                    ball.X -= ball.X + ball.Size - Width;
+                    ball.Position -= new Vector2(ball.Position.X + ball.Size - Width, 0);
                 }
             }
-            if (ball.Y <= 0 || ball.Y + ball.Size >= Height)
+            if (ball.Position.Y <= 0 || ball.Position.Y + ball.Size >= Height)
             {
                 ball.Speed = new Vector2(ball.Speed.X, -ball.Speed.Y);
-                if (ball.Y <= 0)
+                if (ball.Position.Y <= 0)
                 {
-                    ball.Y *= -1;
+                    ball.Position *= new Vector2(1, -1);
                 }
                 else
-                {
-                    ball.Y -= ball.Y + ball.Size - Height;
+                {;
+                    ball.Position -= new Vector2(0, ball.Position.Y + ball.Size - Height);
                 }
             }
         }
@@ -53,15 +53,15 @@ namespace Logika
         public void HandleBallsCollision(Dane.BallAbstract ball1)
         {
             float interval = 0.3f;
-            float nextBall1X = ball1.X + ball1.Speed.X * interval;
-            float nextBall1Y = ball1.Y + ball1.Speed.Y * interval;
+            float nextBall1X = ball1.Position.X + ball1.Speed.X * interval;
+            float nextBall1Y = ball1.Position.Y + ball1.Speed.Y * interval;
             IList<Dane.BallAbstract> collidingBalls = Logika.GetCollidingBalls(ball1);
             Vector2 ball1Center = new Vector2(nextBall1X + ball1.Size / 2, nextBall1Y+ ball1.Size / 2);
 
             foreach (var ball2 in collidingBalls)
             {
-                float nextBall2X = ball2.X + ball2.Speed.X * interval;
-                float nextBall2Y = ball2.Y + ball2.Speed.Y * interval;
+                float nextBall2X = ball2.Position.X + ball2.Speed.X * interval;
+                float nextBall2Y = ball2.Position.Y + ball2.Speed.Y * interval;
                 Vector2 ball2Center = new Vector2(nextBall2X + ball2.Size / 2, nextBall2Y + ball2.Size / 2);
 
                 double powDistanceOfCenters = Math.Pow(ball1Center.X - ball2Center.X, 2) + Math.Pow(ball1Center.Y - ball2Center.Y, 2);
