@@ -16,6 +16,8 @@ namespace Dane
         public abstract event EventHandler<BallEventArgs> ?BallMoved;
         public abstract void Lock();
         public abstract void Unlock();
+        public abstract uint Width { get; }
+        public abstract uint Height { get; }
 
         public static DaneAbstractApi CreateApi(uint width, uint height)
         {
@@ -30,6 +32,9 @@ namespace Dane
         private DataWriter writer;
         private Mutex _lock;
         public override event EventHandler<BallEventArgs>? BallMoved;
+
+        public override uint Width { get; }
+        public override uint Height { get; }
 
         private BallsRepository<BallAbstract> Balls
         {

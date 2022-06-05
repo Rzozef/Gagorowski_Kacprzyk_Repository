@@ -35,8 +35,8 @@ namespace Logika
         private Mutex _mutex;
         private bool _areBallsMoving;
         private CollisionHandler CollisionHandler { get; set; }
-        public override uint screen_width { get; }
-        public override uint screen_height { get; }
+        public override uint screen_width { get => _dane.Width; }
+        public override uint screen_height { get => _dane.Height; }
 
         public override INotifyCollectionChanged NotifyCollectionChanged
         {
@@ -51,8 +51,6 @@ namespace Logika
 
         internal LogikaApi(uint width, uint height, DaneAbstractApi dane)
         {
-            screen_width = width;
-            screen_height = height;
             _dane = dane;
             CollisionHandler = new CollisionHandler(width, height, this);
             _dane.BallMoved += BallMoveEnd;
