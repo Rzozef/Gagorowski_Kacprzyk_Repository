@@ -7,13 +7,11 @@ using System.Text;
 
 namespace Logika
 {
-    public abstract class BallAbstract : INotifyPropertyChanged
+    public abstract class BallAbstract
     {
         public abstract float X { get; }
         public abstract float Y { get; }
         public abstract float Size { get; }
-        public abstract Vector2 Speed { get; set; }
-        public abstract event PropertyChangedEventHandler PropertyChanged;
 
         public static BallAbstract CreateBall(Dane.BallAbstract ball)
         {
@@ -36,21 +34,6 @@ namespace Logika
         public override float Size
         {
             get => _parent.Size;
-        }
-
-        public override Vector2 Speed
-        {
-            get => _parent.Speed;
-            set => _parent.Speed = value;
-        }
-
-        public override event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
 
         internal Ball(Dane.BallAbstract ball)
