@@ -12,13 +12,12 @@ namespace Logika
 {
     public abstract class LogikaAbstractApi
     {
-        public abstract uint screen_width { get; }
-        public abstract uint screen_height { get; }
+        public abstract uint Width { get; }
+        public abstract uint Height { get; }
         public abstract void CreateBalls(uint count);
-        public abstract IList<BallAbstract> GetBalls();
         public abstract void MoveBalls();
+        public abstract IList<BallAbstract> GetBalls();
         public abstract INotifyCollectionChanged NotifyCollectionChanged { get; }
-        public abstract IList<Dane.BallAbstract> GetCollidingBalls(Dane.BallAbstract ball);
         public static LogikaAbstractApi CreateApi(uint width, uint height)
         {
             return new LogikaApi(width, height);
@@ -34,13 +33,14 @@ namespace Logika
         private DaneAbstractApi _dane;
         private Mutex _mutex;
         private bool _areBallsMoving;
+        private BallsRepositoryApi<Dane.BallAbstract> Balls { get; set; }
         private CollisionHandler CollisionHandler { get; set; }
-        public override uint screen_width { get => _dane.Width; }
-        public override uint screen_height { get => _dane.Height; }
+        public override uint Width { get => _dane.Width; }
+        public override uint Height { get => _dane.Height; }
 
         public override INotifyCollectionChanged NotifyCollectionChanged
         {
-            get {return _dane.GetBalls();}
+            get {return Balls;}
         }
 
         internal LogikaApi(uint width, uint height)
@@ -56,21 +56,26 @@ namespace Logika
             _dane.BallMoved += BallMoveEnd;
             _mutex = new Mutex();
             _areBallsMoving = false;
+            Balls = new BallsRepository<Dane.BallAbstract>();
         }
 
         public override void CreateBalls(uint count)
         {
-            _dane.CreateBalls(count);
+            for (uint i = 0; i < count; ++i)
+            {
+                Dane.BallAbstract ball = _dane.CreateBall();
+                Balls.Add(ball);
+            }
         }
 
-        public override IList<Dane.BallAbstract> GetCollidingBalls(Dane.BallAbstract ball)
+        internal IList<Dane.BallAbstract> GetCollidingBalls(Dane.BallAbstract ball)
         {
             float interval = 0.5f;
             float newBallX = ball.Position.X + ball.Speed.X * interval;
             float newBallY = ball.Position.Y + ball.Speed.Y * interval;
             Vector2 ballCenter = new Vector2(newBallX + ball.Size / 2, newBallY + ball.Size / 2);
             IList<Dane.BallAbstract> output = new List<Dane.BallAbstract>();
-            foreach (var otherBall in _dane.GetBalls())
+            foreach (Dane.BallAbstract otherBall in Balls)
             {
                 if (otherBall != ball)
                 {
@@ -91,7 +96,7 @@ namespace Logika
         public override IList<BallAbstract> GetBalls()
         {
             IList<BallAbstract> balls = new List<BallAbstract>();
-            foreach (Dane.BallAbstract b in _dane.GetBalls())
+            foreach (Dane.BallAbstract b in Balls)
             {
                 balls.Add(BallAbstract.CreateBall(b));
             }
@@ -103,7 +108,10 @@ namespace Logika
             if (!_areBallsMoving)
             {
                 _areBallsMoving = true;
-                _dane.MoveBalls();
+                foreach (Dane.BallAbstract ball in Balls)
+                {
+                    Task.Factory.StartNew(ball.Move);
+                }
             }
         }
 

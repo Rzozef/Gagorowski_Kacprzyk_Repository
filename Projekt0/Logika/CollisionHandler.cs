@@ -13,9 +13,9 @@ namespace Logika
         private uint Width { get; set; }
         private uint Height { get; set; }
 
-        private LogikaAbstractApi Logika { get; set; }
+        private LogikaApi Logika { get; set; }
 
-        public CollisionHandler(uint width, uint height, LogikaAbstractApi _logika)
+        public CollisionHandler(uint width, uint height, LogikaApi _logika)
         {
             Width = width;
             Height = height;

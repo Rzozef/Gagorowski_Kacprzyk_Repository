@@ -17,13 +17,14 @@ namespace Dane
 
         public Stream Serialize()
         {
-            IList<BallAbstract> balls = Dane.GetBalls();
+            /*            IList<BallAbstract> balls = Dane.GetBalls();
 
 
-            var options = new JsonSerializerOptions() { WriteIndented = true };
-            return new MemoryStream
-                (Encoding.ASCII.GetBytes(
-                JsonSerializer.Serialize(new { balls, DateTime.Now }, options)));
+                        var options = new JsonSerializerOptions() { WriteIndented = true };
+                        return new MemoryStream
+                            (Encoding.ASCII.GetBytes(
+                            JsonSerializer.Serialize(new { balls, DateTime.Now }, options)));*/
+            return new MemoryStream();
         }
     }
 }

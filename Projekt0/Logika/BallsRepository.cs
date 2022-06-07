@@ -6,7 +6,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Text;
 
-namespace Dane
+namespace Logika
 {
     public abstract class BallsRepositoryApi<BallAbstract> : ObservableCollection<BallAbstract>
     {
