@@ -6,50 +6,85 @@ using System.Threading.Tasks;
 
 namespace Dane
 {
+    internal class BallRecord
+    {
+        internal string Data { get; }
+        internal BallAbstract Ball { get; }
+
+        public BallRecord(string data, BallAbstract ball)
+        {
+            Data = data;
+            Ball = ball;
+        }
+    }
     internal class DataWriter
     {
-        private string subdirectory { get; }
-        private string fileName { get; }
-        private IList<Stream> DataToWrite { get; set; }
-        private ulong DataOffset { get; set; }
+        private string _directory { get; }
+        private string _fileName { get; }
+        private IList<BallRecord> DataToWrite { get; set; }
+        private IReadOnlyDictionary<BallAbstract, int> BallsIdDict { get; }
+        private IDictionary<int, ulong> IdOffsetDict { get; }
 
         private void WriteData()
         {
             lock (DataToWrite)
             {
-                using Stream data = DataToWrite[0];
-                DataToWrite.Remove(data);
+                BallRecord record = DataToWrite[0];
+                DataToWrite.RemoveAt(0);
 
-                string fullPath = Directory.GetCurrentDirectory() + "\\" + subdirectory + "\\" + fileName + DataOffset + ".json";
-                using FileStream stream = File.Create(fullPath);
-                DataOffset++;
-                data.CopyTo(stream);
-                data.Close();
+                int ballId;
+                BallsIdDict.TryGetValue(record.Ball, out ballId);
+
+                ulong offset;
+                IdOffsetDict.TryGetValue(ballId, out offset);
+
+                string subdirectory = _fileName + ballId;
+                if (!Directory.Exists(_directory + "\\" + subdirectory))
+                {
+                    Directory.CreateDirectory(_directory + "\\" + subdirectory);
+                }
+
+                string fullPath = _directory + "\\" + subdirectory + "\\" + _fileName + offset + ".json";
+                File.WriteAllText(fullPath, record.Data);
+                IdOffsetDict.Remove(ballId);
+                IdOffsetDict.Add(ballId, offset + 1);
             }
         }
 
-        public DataWriter(string directory, string fileName)
+        public DataWriter(string subdir, string fileName, IList<BallAbstract> balls)
         {
-            if (directory == null || fileName == null)
+            if (subdir == null || fileName == null)
             {
                 throw new ArgumentNullException();
             }
-            this.subdirectory = directory;
-            this.fileName = fileName;
+            this._fileName = fileName;
+            _directory = Directory.GetCurrentDirectory() + "\\" + subdir;
 
-            if (Directory.Exists(directory))
+            if (Directory.Exists(_directory))
             {
-                Directory.Delete(directory, true);
+                Directory.Delete(_directory, true);
             }
-            Directory.CreateDirectory(directory);
+            Directory.CreateDirectory(_directory);
 
-            DataToWrite = new List<Stream>();
-            DataOffset = 0;
+            DataToWrite = new List<BallRecord>();
+
+            Dictionary<BallAbstract, int> ballsIdDict = new Dictionary<BallAbstract, int>();
+            BallsIdDict = ballsIdDict;
+            for (int i = 0; i < balls.Count; ++i)
+            {
+                ballsIdDict.Add(balls[i], i);
+            }
+
+            IdOffsetDict = new Dictionary<int, ulong>();
+            foreach (KeyValuePair<BallAbstract, int> pair in BallsIdDict)
+            {
+                IdOffsetDict.Add(pair.Value, 0);
+            }
         }
 
-        public async void WriteBallsPosition(Stream data)
+        public async void WriteBallsPosition(string data, BallAbstract ball)
         {
-            DataToWrite.Add(data);
+            DataToWrite.Add(new BallRecord(data, ball));
             Task.Factory.StartNew(
                 WriteData
                 );

@@ -15,6 +15,8 @@ namespace Dane
         public abstract void Unlock();
         public abstract uint Width { get; }
         public abstract uint Height { get; }
+        public abstract void InitializeWriter(IList<BallAbstract> balls);
+        public abstract void WriteBall(BallAbstract ball);
         public abstract BallAbstract CreateBall();
 
         public static DaneAbstractApi CreateApi(uint width, uint height)
@@ -29,16 +31,21 @@ namespace Dane
         private DataWriter writer;
         private Mutex _lock;
         public override event EventHandler<BallEventArgs>? BallMoved;
-
         public override uint Width { get; }
         public override uint Height { get; }
-
+        public override void InitializeWriter(IList<BallAbstract> balls)
+        {
+            writer = new DataWriter("logs", "ball", balls);
+        }
+        public override void WriteBall(BallAbstract ball)
+        {
+            writer.WriteBallsPosition(serializer.Serialize(ball), ball);
+        }
         public DaneApi(uint width, uint height)
         {
             Width = width;
             Height = height;
             serializer = new DataSerializer(this);
-            writer = new DataWriter("logs", "balls");
             _lock = new Mutex();
         }
 

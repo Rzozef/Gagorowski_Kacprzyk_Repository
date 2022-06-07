@@ -15,16 +15,15 @@ namespace Dane
             Dane = dane;
         }
 
-        public Stream Serialize()
+        public string Serialize(BallAbstract ball)
         {
-            /*            IList<BallAbstract> balls = Dane.GetBalls();
+            JsonSerializerOptions options = new JsonSerializerOptions() { WriteIndented = true };
+            options.Converters.Add(new BallConverter());
+            Dane.Lock();
 
-
-                        var options = new JsonSerializerOptions() { WriteIndented = true };
-                        return new MemoryStream
-                            (Encoding.ASCII.GetBytes(
-                            JsonSerializer.Serialize(new { balls, DateTime.Now }, options)));*/
-            return new MemoryStream();
+            string output = JsonSerializer.Serialize(new { ball, DateTime.Now }, options);
+            Dane.Unlock();
+            return output;
         }
     }
 }

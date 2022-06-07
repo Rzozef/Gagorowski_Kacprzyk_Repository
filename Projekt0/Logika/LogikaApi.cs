@@ -66,6 +66,7 @@ namespace Logika
                 Dane.BallAbstract ball = _dane.CreateBall();
                 Balls.Add(ball);
             }
+            _dane.InitializeWriter(Balls);
         }
 
         internal IList<Dane.BallAbstract> GetCollidingBalls(Dane.BallAbstract ball)

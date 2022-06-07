@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
@@ -16,7 +17,6 @@ namespace Dane
 
         public abstract event EventHandler<BallEventArgs> ?Moved;
 
-        [JsonIgnore]
         public abstract Vector2 Speed { get; set; }
         public abstract event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,7 +28,7 @@ namespace Dane
     }
 
     [Serializable]
-    internal class Ball : BallAbstract, ISerializable
+    internal class Ball : BallAbstract
     {
         private readonly DaneAbstractApi _dane;
         private Vector2 _position { get; set; }
@@ -98,27 +98,13 @@ namespace Dane
                 long delta = currentTime - previousTime;
                 previousTime = currentTime;
                 Position = new Vector2(Position.X + (Speed.X * delta / 50), Position.Y + (Speed.Y * delta / 50));
+                _dane.WriteBall(this);
                 _dane.Unlock();
 
                 BallEventArgs args = new BallEventArgs(this);
                 Moved?.Invoke(this, args);
-
-                //writer.WriteBallsPosition(serializer.Serialize());
                 await Task.Delay(10);
             }
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            _dane.Lock();
-            Vector2 position = Position;
-            info.AddValue("X", position.X);
-            info.AddValue("Y", position.Y);
-            info.AddValue("Size", Size);
-            info.AddValue("Mass", Mass);
-            info.AddValue("SpeedX", Speed.X);
-            info.AddValue("SpeedY", Speed.Y);
-            _dane.Unlock();
         }
     }
 }
