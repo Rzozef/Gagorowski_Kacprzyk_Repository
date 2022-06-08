@@ -15,10 +15,16 @@ public class DaneApiTests
     [Test]
     public void CreateBallsTests()
     {
-        Assert.AreEqual(api.GetBalls().Count, 0);
-        api.CreateBalls(3);
-        Assert.AreEqual(api.GetBalls().Count, 3);
-        api.CreateBalls(2);
-        Assert.AreEqual(api.GetBalls().Count, 5);
+        BallAbstract ball = api.CreateBall();
+        Assert.Greater(ball.Size, 5);
+        Assert.Less(ball.Size, 20);
+        Assert.Greater(ball.Position.X, 0);
+        Assert.Less(ball.Position.X, 200 - ball.Size);
+        Assert.Greater(ball.Position.Y, 0);
+        Assert.Less(ball.Position.Y, 200 - ball.Size);
+        Assert.Greater(ball.Speed.X, -3.01);
+        Assert.Less(ball.Speed.X, 3);
+        Assert.Greater(ball.Speed.Y, -3.01);
+        Assert.Less(ball.Speed.Y, 3);
     }
 }

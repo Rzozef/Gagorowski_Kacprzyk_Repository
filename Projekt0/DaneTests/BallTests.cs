@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Numerics;
+using System.Threading.Tasks;
 using Dane;
 
 namespace DaneTests;
@@ -18,10 +19,8 @@ public class BallTests
     [Test]
     public void MoveTests()
     {
-        Assert.AreEqual(10, test_ball.X);
-        Assert.AreEqual(10, test_ball.Y);
-        test_ball.Move(50);
-        Assert.AreEqual(15, test_ball.X);
-        Assert.AreEqual(15, test_ball.Y);
+        Assert.AreEqual(10, test_ball.Position.X);
+        Assert.AreEqual(10, test_ball.Position.Y);
+        
     }
 }
