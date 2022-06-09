@@ -23,7 +23,14 @@ namespace Dane
             }
             Directory.CreateDirectory(_directory);
 
+            string fullPath = _directory + "\\" + _fileName + ".json";
+            lock (_lock)
+            {
+                File.WriteAllText(fullPath, "[]");
+            }
+
             DataToWrite = new ConcurrentQueue<BallRecord>();
+            _first = true;
         }
         private static readonly object _lock = new object();
         private static DataWriter? _instance = null;
@@ -44,6 +51,7 @@ namespace Dane
 
         private string _directory { get; }
         private string _fileName { get; }
+        private bool _first { get; set; }
         private ConcurrentQueue<BallRecord> DataToWrite { get; set; }
 
 
@@ -61,7 +69,18 @@ namespace Dane
             string fullPath = _directory + "\\" + _fileName + ".json";
             lock (_lock)
             {
-                File.AppendAllText(fullPath, record.SerializedData);
+                FileStream fs = new FileStream(fullPath, FileMode.Open, FileAccess.ReadWrite);
+                fs.SetLength(fs.Length - 1);
+                fs.Close();
+                if (!_first)
+                {
+                    File.AppendAllText(fullPath, "," + record.SerializedData + "]");
+                }
+                else
+                {
+                    File.AppendAllText(fullPath, record.SerializedData + "]");
+                    _first = false;
+                }
             }
             //IdOffsetDict.Remove(ballId);
             //IdOffsetDict.Add(ballId, offset + 1);
