@@ -8,6 +8,7 @@ namespace Dane
 {
     internal class DataWriter
     {
+        internal static int MAX_ITEMS_NUM = 10000;
         DataWriter(string subdir, string fileName)
         {
             if (subdir == null || fileName == null)
@@ -25,7 +26,7 @@ namespace Dane
             file = _directory + "\\" + fileName + ".json";
             File.WriteAllText(file, "[]");
 
-            DataToWrite = new ConcurrentQueue<BallRecord>();
+            DataToWrite = new BlockingCollection<BallRecord>(new ConcurrentQueue<BallRecord>(), MAX_ITEMS_NUM);
             _first = true;
             Task.Factory.StartNew(Writer);
         }
@@ -48,13 +49,13 @@ namespace Dane
 
         private string file { get; set; }
         private bool _first { get; set; }
-        private ConcurrentQueue<BallRecord> DataToWrite { get; set; }
+        private BlockingCollection<BallRecord> DataToWrite { get; set; }
 
 
         private void WriteData()
         {
             BallRecord record;
-            while (!DataToWrite.TryDequeue(out record)) { }
+            while (!DataToWrite.TryTake(out record)) { }
 
             FileStream fs = new FileStream(file, FileMode.Open, FileAccess.ReadWrite);
             fs.SetLength(fs.Length - 1);
@@ -74,7 +75,7 @@ namespace Dane
         {
             while (true)
             {
-                while (!DataToWrite.IsEmpty)
+                while (DataToWrite.Count != 0)
                 {
                     WriteData();
                 }
@@ -85,7 +86,7 @@ namespace Dane
 
         public async void WriteBallPosition(BallAbstract ball, DateTime time)
         {
-            DataToWrite.Enqueue(new BallRecord(ball, time));
+            DataToWrite.TryAdd(new BallRecord(ball, time));
         }
     }
 }

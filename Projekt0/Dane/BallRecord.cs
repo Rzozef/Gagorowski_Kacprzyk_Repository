@@ -7,11 +7,11 @@ namespace Dane
 {
     internal class BallRecord
     {
-        private float _x { get; set; }
-        private float _y { get; set; }
-        private Vector2 _speed { get; set; }
-        private DateTime _time { get; set; }
-        private string _serializedData { get; set; }
+        private float _x { get; }
+        private float _y { get; }
+        private Vector2 _speed { get; }
+        private DateTime _time { get; }
+        private string _serializedData { get; }
 
         internal float X { get => _x; }
         internal float Y { get => _y; }
