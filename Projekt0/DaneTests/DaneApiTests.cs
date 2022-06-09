@@ -6,12 +6,21 @@ namespace DaneTests;
 public class DaneApiTests
 {
     private DaneAbstractApi api;
+    private readonly uint test_width = 200;
+    private readonly uint test_height = 200;
     [SetUp]
     public void Setup()
     {
-        api = DaneAbstractApi.CreateApi(200, 200);
+        api = DaneAbstractApi.CreateApi(test_width, test_height);
     }
 
+    [Test]
+    public void CreateApiTests()
+    {
+        Assert.AreEqual(api.Width, test_width);
+        Assert.AreEqual(api.Height, test_height);
+    }
+    
     [Test]
     public void CreateBallsTests()
     {

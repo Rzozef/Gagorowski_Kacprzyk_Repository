@@ -13,8 +13,8 @@ public class DataSerializerTests
     [SetUp]
     public void Setup()
     {
-        serializer = new DataSerializer(new DaneApi(200, 200));
         api = new DaneApi(200, 200);
+        serializer = new DataSerializer(api);
         ball = api.CreateBall();
     }
 
