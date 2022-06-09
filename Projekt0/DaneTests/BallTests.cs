@@ -9,10 +9,10 @@ public class BallTests
 {
     private DaneAbstractApi dane;
     private BallAbstract test_ball;
-    private readonly int test_x = 10;
-    private readonly int test_y = 10;
-    private readonly int test_size = 10;
-    private readonly int test_mass = 10;
+    private readonly float test_x = 10;
+    private readonly float test_y = 10;
+    private readonly float test_size = 10;
+    private readonly float test_mass = 10;
 
     [SetUp]
     public void Setup()
