@@ -8,9 +8,14 @@ namespace Dane
 {
     internal class DataSerializer
     {
-        DataSerializer() { }
+        DataSerializer()
+        {
+            BallsIdDict = new Dictionary<BallRecord, int>();
+        }
         private static readonly object _lock = new object();
         private static DataSerializer? _instance = null;
+        private IDictionary<BallRecord, int> BallsIdDict { get; }
+        private int HighestIdCounter { get; set; }
         public static DataSerializer Instance
         {
             get
@@ -26,14 +31,22 @@ namespace Dane
             }
         }
 
-        public string Serialize(BallAbstract ball)
+        public string Serialize(BallRecord ball)
         {
             JsonSerializerOptions options = new JsonSerializerOptions() { WriteIndented = true };
             options.Converters.Add(new BallConverter());
-            ball.Lock();
 
-            string output = JsonSerializer.Serialize(new { ball, DateTime.Now }, options);
-            ball.Unlock();
+            string output;
+            if (!BallsIdDict.ContainsKey(ball))
+            {
+                lock (_lock)
+                {
+                    BallsIdDict.Add(ball, HighestIdCounter + 1);
+                    HighestIdCounter++;
+                }
+            }
+            output = JsonSerializer.Serialize(new { ball, ID = BallsIdDict[ball] }, options);
+
             return output;
         }
     }
