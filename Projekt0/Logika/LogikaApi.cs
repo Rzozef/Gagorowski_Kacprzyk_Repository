@@ -12,10 +12,7 @@ namespace Logika
 {
     public abstract class LogikaAbstractApi
     {
-        public abstract uint Width { get; }
-        public abstract uint Height { get; }
         public abstract void CreateBalls(uint count);
-        public abstract void MoveBalls();
         public abstract IList<BallAbstract> GetBalls();
         public abstract INotifyCollectionChanged NotifyCollectionChanged { get; }
         public static LogikaAbstractApi CreateApi(uint width, uint height)
@@ -31,12 +28,10 @@ namespace Logika
     internal class LogikaApi : LogikaAbstractApi
     {
         private DaneAbstractApi _dane;
-        private Mutex _mutex;
-        private bool _areBallsMoving;
         private BallsRepositoryApi<Dane.BallAbstract> Balls { get; set; }
         private CollisionHandler CollisionHandler { get; set; }
-        public override uint Width { get => _dane.Width; }
-        public override uint Height { get => _dane.Height; }
+        private uint Width { get; }
+        private uint Height { get; }
 
         public override INotifyCollectionChanged NotifyCollectionChanged
         {
@@ -46,7 +41,8 @@ namespace Logika
         internal LogikaApi(uint width, uint height)
             : this(width, height, DaneAbstractApi.CreateApi(width, height))
         {
-            
+            Width = width;
+            Height = height;
         }
 
         internal LogikaApi(uint width, uint height, DaneAbstractApi dane)
@@ -54,8 +50,6 @@ namespace Logika
             _dane = dane;
             CollisionHandler = new CollisionHandler(width, height, this);
             _dane.BallMoved += BallMoveEnd;
-            _mutex = new Mutex();
-            _areBallsMoving = false;
             Balls = new BallsRepository<Dane.BallAbstract>();
         }
 
@@ -101,18 +95,6 @@ namespace Logika
                 balls.Add(BallAbstract.CreateBall(b));
             }
             return balls;
-        }
-
-        public override void MoveBalls()
-        {
-            if (!_areBallsMoving)
-            {
-                _areBallsMoving = true;
-                foreach (Dane.BallAbstract ball in Balls)
-                {
-                    Task.Factory.StartNew(ball.Move);
-                }
-            }
         }
 
         private void BallMoveEnd(object obj, BallEventArgs args)

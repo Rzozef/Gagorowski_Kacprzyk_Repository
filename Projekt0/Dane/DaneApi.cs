@@ -11,9 +11,6 @@ namespace Dane
     {
         
         public abstract event EventHandler<BallEventArgs> ?BallMoved;
-        public abstract uint Width { get; }
-        public abstract uint Height { get; }
-        public abstract void WriteBall(BallAbstract ball, DateTime time);
         public abstract BallAbstract CreateBall();
 
         public static DaneAbstractApi CreateApi(uint width, uint height)
@@ -25,12 +22,8 @@ namespace Dane
     internal class DaneApi : DaneAbstractApi
     {
         public override event EventHandler<BallEventArgs>? BallMoved;
-        public override uint Width { get; }
-        public override uint Height { get; }
-        public override void WriteBall(BallAbstract ball, DateTime time)
-        {
-            DataWriter.Instance.WriteBallPosition(ball, time);
-        }
+        private uint Width { get; }
+        private uint Height { get; }
         public DaneApi(uint width, uint height)
         {
             Width = width;

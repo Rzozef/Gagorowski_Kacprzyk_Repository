@@ -23,10 +23,9 @@ namespace Dane
         public abstract void Lock();
         public abstract void Unlock();
 
-        public abstract void Move();
         public static BallAbstract CreateBall(float x, float y, float size, float mass, Vector2 speed)
         {
-            return new Ball(x, y, size, mass, speed); // Wyjeb to i zastąp singletonem
+            return new Ball(x, y, size, mass, speed);
         }
     }
 
@@ -86,7 +85,7 @@ namespace Dane
             }
         }
 
-        internal Ball(float x, float y, float size, float mass, Vector2 speed) // Logger, singleton
+        internal Ball(float x, float y, float size, float mass, Vector2 speed)
         {
             _position = new Vector2(x, y);
             _mutex = new Mutex();
@@ -97,12 +96,14 @@ namespace Dane
 
             BallEventArgs args = new BallEventArgs(this);
             Moved?.Invoke(this, args);
+
+            Task.Factory.StartNew(Move);
         }
 
-        public async override void Move()
+        private async void Move()
         {
             long previousTime = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
-            while (true) // Cancellation token
+            while (true)
             {
                 Lock();
                 long currentTime = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;

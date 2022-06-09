@@ -64,8 +64,6 @@ namespace Prezentacja
                     _balls.Add(Ball.CreateBall(ref o));
                 }
                 _balls.RegisterPropertyChanged(_logic.NotifyCollectionChanged);
-
-                _logic.MoveBalls();
             }
             public override uint WindowWidth
             {
