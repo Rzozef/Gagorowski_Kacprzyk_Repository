@@ -86,7 +86,7 @@ namespace Dane
 
         public async void WriteBallPosition(BallAbstract ball, DateTime time)
         {
-            DataToWrite.TryAdd(new BallRecord(ball, time));
+            DataToWrite.TryAdd(new BallRecord(ball, time), 10);
         }
     }
 }
