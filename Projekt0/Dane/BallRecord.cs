@@ -17,7 +17,7 @@ namespace Dane
         internal float Y { get => _y; }
         internal Vector2 Speed { get => _speed; }
         internal DateTime Time { get => _time; }
-        private string SerializedData { get => _serializedData; }
+        internal string SerializedData { get => _serializedData; }
 
         public BallRecord(BallAbstract ball, DateTime time)
         {

@@ -6,25 +6,27 @@ using System.Threading.Tasks;
 
 namespace Dane
 {
-/*    internal class BallWriterRecord
-    {
-        internal string Data { get; }
-        internal BallAbstract Ball { get; }
-
-        public BallWriterRecord(string data, BallAbstract ball)
-        {
-            Data = data;
-            Ball = ball;
-        }
-    }*/
     internal class DataWriter
     {
         DataWriter(string subdir, string fileName)
         {
+            if (subdir == null || fileName == null)
+            {
+                throw new ArgumentNullException();
+            }
+            _fileName = fileName;
+            _directory = Directory.GetCurrentDirectory() + "\\" + subdir;
 
+            if (Directory.Exists(_directory))
+            {
+                Directory.Delete(_directory, true);
+            }
+            Directory.CreateDirectory(_directory);
+
+            DataToWrite = new List<BallRecord>();
         }
         private static readonly object _lock = new object();
-        private static DataWriter _instance = null;
+        private static DataWriter? _instance = null;
         public static DataWriter Instance
         {
             get
@@ -51,19 +53,19 @@ namespace Dane
         {
             lock (DataToWrite)
             {
-/*                BallRecord record = DataToWrite[0];
+                BallRecord record = DataToWrite[0];
                 DataToWrite.RemoveAt(0);
 
-                int ballId;
-                BallsIdDict.TryGetValue(record.Ball, out ballId);
+                //int ballId;
+                //BallsIdDict.TryGetValue(record.Ball, out ballId);
 
-                ulong offset;
-                IdOffsetDict.TryGetValue(ballId, out offset);
+                //ulong offset;
+                //IdOffsetDict.TryGetValue(ballId, out offset);
 
                 string fullPath = _directory + "\\" + _fileName + ".json";
-                File.AppendAllText(fullPath, ballId + record.Data);
-                IdOffsetDict.Remove(ballId);
-                IdOffsetDict.Add(ballId, offset + 1);*/
+                File.AppendAllText(fullPath, record.SerializedData);
+                //IdOffsetDict.Remove(ballId);
+                //IdOffsetDict.Add(ballId, offset + 1);
             }
         }
 
@@ -99,10 +101,10 @@ namespace Dane
         }
         public async void WriteBallPosition(BallAbstract ball, DateTime time)
         {
-/*            DataToWrite.Add(new BallRecord(ball, time));
+            DataToWrite.Add(new BallRecord(ball, time));
             Task.Factory.StartNew(
                 WriteData
-                );*/
+                );
         }
     }
 }
