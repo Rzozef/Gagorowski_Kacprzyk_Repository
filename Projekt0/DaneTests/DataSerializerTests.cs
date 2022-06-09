@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Numerics;
 using Dane;
 using NUnit.Framework;
 
@@ -14,8 +15,8 @@ public class DataSerializerTests
     }
 
     [Test]
-    public void SerializeTests()
+    public void CreateSerializerTests()
     {
-        
+        Assert.That(DataSerializer.Instance, Is.TypeOf(typeof(DataSerializer)));
     }
 }

@@ -8,8 +8,6 @@ namespace DaneTests;
 
 public class DataWriterTests
 {
-
-    
     [SetUp]
     public void Setup()
     {
@@ -17,8 +15,8 @@ public class DataWriterTests
     }
 
     [Test]
-    public void WriteDataTests()
+    public void CreateWriterTests()
     {
-
+        Assert.That(DataWriter.Instance, Is.TypeOf(typeof(DataWriter)));
     }
 }
