@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Dane
@@ -19,18 +20,20 @@ namespace Dane
 
         public abstract Vector2 Speed { get; set; }
         public abstract event PropertyChangedEventHandler PropertyChanged;
+        public abstract void Lock();
+        public abstract void Unlock();
 
         public abstract void Move();
-        public static BallAbstract CreateBall(float x, float y, float size, float mass, Vector2 speed, DaneAbstractApi dane)
+        public static BallAbstract CreateBall(float x, float y, float size, float mass, Vector2 speed)
         {
-            return new Ball(x, y, size, mass, speed, dane);
+            return new Ball(x, y, size, mass, speed); // Wyjeb to i zastąp singletonem
         }
     }
 
     [Serializable]
     internal class Ball : BallAbstract
     {
-        private readonly DaneAbstractApi _dane;
+        private Mutex _mutex { get; set; }
         private Vector2 _position { get; set; }
         private float _size { get; set; }
         private float _mass { get; set; }
@@ -67,6 +70,14 @@ namespace Dane
         }
 
         public override event PropertyChangedEventHandler PropertyChanged;
+        public override void Lock()
+        {
+            _mutex.WaitOne();
+        }
+        public override void Unlock()
+        {
+            _mutex.ReleaseMutex();
+        }
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             if (PropertyChanged != null)
@@ -75,10 +86,10 @@ namespace Dane
             }
         }
 
-        internal Ball(float x, float y, float size, float mass, Vector2 speed, DaneAbstractApi dane)
+        internal Ball(float x, float y, float size, float mass, Vector2 speed) // Logger, singleton
         {
             _position = new Vector2(x, y);
-            _dane = dane;
+            _mutex = new Mutex();
 
             _size = size;
             _mass = mass;
@@ -91,15 +102,15 @@ namespace Dane
         public async override void Move()
         {
             long previousTime = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
-            while (true)
+            while (true) // Cancellation token
             {
-                _dane.Lock();
+                Lock();
                 long currentTime = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
                 long delta = currentTime - previousTime;
                 previousTime = currentTime;
                 Position = new Vector2(Position.X + (Speed.X * delta / 50), Position.Y + (Speed.Y * delta / 50));
-                _dane.WriteBall(this);
-                _dane.Unlock();
+                DataWriter.Instance.WriteBallPosition(this, DateTime.Now);
+                Unlock();
 
                 BallEventArgs args = new BallEventArgs(this);
                 Moved?.Invoke(this, args);

@@ -66,7 +66,6 @@ namespace Logika
                 Dane.BallAbstract ball = _dane.CreateBall();
                 Balls.Add(ball);
             }
-            _dane.InitializeWriter(Balls);
         }
 
         internal IList<Dane.BallAbstract> GetCollidingBalls(Dane.BallAbstract ball)
@@ -119,12 +118,10 @@ namespace Logika
         private void BallMoveEnd(object obj, BallEventArgs args)
         {
             Dane.BallAbstract ball = args.Ball;
-            _mutex.WaitOne();
-            _dane.Lock();
+            ball.Lock();
             CollisionHandler.HandleBallsCollision(ball);
             CollisionHandler.HandleBorderCollision(ball);
-            _dane.Unlock();
-            _mutex.ReleaseMutex();
+            ball.Unlock();
         }
     }
 }

@@ -6,19 +6,40 @@ using System.Threading.Tasks;
 
 namespace Dane
 {
-    internal class BallRecord
+/*    internal class BallWriterRecord
     {
         internal string Data { get; }
         internal BallAbstract Ball { get; }
 
-        public BallRecord(string data, BallAbstract ball)
+        public BallWriterRecord(string data, BallAbstract ball)
         {
             Data = data;
             Ball = ball;
         }
-    }
+    }*/
     internal class DataWriter
     {
+        DataWriter(string subdir, string fileName)
+        {
+
+        }
+        private static readonly object _lock = new object();
+        private static DataWriter _instance = null;
+        public static DataWriter Instance
+        {
+            get
+            {
+                lock (_lock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new DataWriter("logs", "ball");
+                    }
+                    return _instance;
+                }
+            }
+        }
+
         private string _directory { get; }
         private string _fileName { get; }
         private IList<BallRecord> DataToWrite { get; set; }
@@ -29,7 +50,7 @@ namespace Dane
         {
             lock (DataToWrite)
             {
-                BallRecord record = DataToWrite[0];
+/*                BallRecord record = DataToWrite[0];
                 DataToWrite.RemoveAt(0);
 
                 int ballId;
@@ -47,13 +68,13 @@ namespace Dane
                 string fullPath = _directory + "\\" + subdirectory + "\\" + _fileName + offset + ".json";
                 File.WriteAllText(fullPath, record.Data);
                 IdOffsetDict.Remove(ballId);
-                IdOffsetDict.Add(ballId, offset + 1);
+                IdOffsetDict.Add(ballId, offset + 1);*/
             }
         }
 
         public DataWriter(string subdir, string fileName, IList<BallAbstract> balls)
         {
-            if (subdir == null || fileName == null)
+/*            if (subdir == null || fileName == null)
             {
                 throw new ArgumentNullException();
             }
@@ -79,15 +100,14 @@ namespace Dane
             foreach (KeyValuePair<BallAbstract, int> pair in BallsIdDict)
             {
                 IdOffsetDict.Add(pair.Value, 0);
-            }
+            }*/
         }
-
-        public async void WriteBallsPosition(string data, BallAbstract ball)
+        public async void WriteBallPosition(BallAbstract ball, DateTime time)
         {
-            DataToWrite.Add(new BallRecord(data, ball));
+/*            DataToWrite.Add(new BallRecord(ball, time));
             Task.Factory.StartNew(
                 WriteData
-                );
+                );*/
         }
     }
 }

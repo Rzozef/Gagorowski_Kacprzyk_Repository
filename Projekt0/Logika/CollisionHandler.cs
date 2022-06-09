@@ -60,6 +60,11 @@ namespace Logika
 
             foreach (var ball2 in collidingBalls)
             {
+                ball2.Lock();
+            }
+
+            foreach (var ball2 in collidingBalls)
+            {
                 float nextBall2X = ball2.Position.X + ball2.Speed.X * interval;
                 float nextBall2Y = ball2.Position.Y + ball2.Speed.Y * interval;
                 Vector2 ball2Center = new Vector2(nextBall2X + ball2.Size / 2, nextBall2Y + ball2.Size / 2);
@@ -76,6 +81,11 @@ namespace Logika
 
                 ball1.Speed -= (float)(massDiv1 * dot1) / (float)powDistanceOfCenters * diff1;
                 ball2.Speed -= (float)(massDiv2 * dot2) / (float)powDistanceOfCenters * diff2;
+            }
+
+            foreach (var ball2 in collidingBalls)
+            {
+                ball2.Unlock();
             }
         }
     }

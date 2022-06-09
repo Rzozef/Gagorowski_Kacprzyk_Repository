@@ -8,21 +8,32 @@ namespace Dane
 {
     internal class DataSerializer
     {
-        private DaneAbstractApi Dane { get; }
-
-        public DataSerializer(DaneAbstractApi dane)
+        DataSerializer() { }
+        private static readonly object _lock = new object();
+        private static DataSerializer? _instance = null;
+        public static DataSerializer Instance
         {
-            Dane = dane;
+            get
+            {
+                lock (_lock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new DataSerializer();
+                    }
+                    return _instance;
+                }
+            }
         }
 
         public string Serialize(BallAbstract ball)
         {
             JsonSerializerOptions options = new JsonSerializerOptions() { WriteIndented = true };
             options.Converters.Add(new BallConverter());
-            Dane.Lock();
+            ball.Lock();
 
             string output = JsonSerializer.Serialize(new { ball, DateTime.Now }, options);
-            Dane.Unlock();
+            ball.Unlock();
             return output;
         }
     }
