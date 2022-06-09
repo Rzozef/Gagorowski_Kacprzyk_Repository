@@ -10,11 +10,11 @@ namespace Dane
     {
         DataSerializer()
         {
-            BallsIdDict = new Dictionary<BallRecord, int>();
+            BallsIdDict = new Dictionary<BallAbstract, int>();
         }
         private static readonly object _lock = new object();
         private static DataSerializer? _instance = null;
-        private IDictionary<BallRecord, int> BallsIdDict { get; }
+        private IDictionary<BallAbstract, int> BallsIdDict { get; }
         private int HighestIdCounter { get; set; }
         public static DataSerializer Instance
         {
@@ -31,21 +31,21 @@ namespace Dane
             }
         }
 
-        public string Serialize(BallRecord ball)
+        public string Serialize(BallRecord ball, BallAbstract orgBall)
         {
             JsonSerializerOptions options = new JsonSerializerOptions() { WriteIndented = true };
             options.Converters.Add(new BallConverter());
 
             string output;
-            if (!BallsIdDict.ContainsKey(ball))
+            if (!BallsIdDict.ContainsKey(orgBall))
             {
                 lock (_lock)
                 {
-                    BallsIdDict.Add(ball, HighestIdCounter + 1);
+                    BallsIdDict.Add(orgBall, HighestIdCounter + 1);
                     HighestIdCounter++;
                 }
             }
-            output = JsonSerializer.Serialize(new { ball, ID = BallsIdDict[ball] }, options);
+            output = JsonSerializer.Serialize(new { ball, ID = BallsIdDict[orgBall] }, options);
 
             return output;
         }

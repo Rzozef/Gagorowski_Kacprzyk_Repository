@@ -30,8 +30,6 @@ namespace Logika
         private DaneAbstractApi _dane;
         private BallsRepositoryApi<Dane.BallAbstract> Balls { get; set; }
         private CollisionHandler CollisionHandler { get; set; }
-        private uint Width { get; }
-        private uint Height { get; }
 
         public override INotifyCollectionChanged NotifyCollectionChanged
         {
@@ -41,8 +39,7 @@ namespace Logika
         internal LogikaApi(uint width, uint height)
             : this(width, height, DaneAbstractApi.CreateApi(width, height))
         {
-            Width = width;
-            Height = height;
+
         }
 
         internal LogikaApi(uint width, uint height, DaneAbstractApi dane)

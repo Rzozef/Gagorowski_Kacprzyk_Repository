@@ -25,7 +25,7 @@ namespace Dane
             _y = ball.Position.Y;
             _speed = new Vector2(ball.Speed.X, ball.Speed.Y);
             _time = time;
-            _serializedData = DataSerializer.Instance.Serialize(this);
+            _serializedData = DataSerializer.Instance.Serialize(this, ball);
         }
     }
 }
