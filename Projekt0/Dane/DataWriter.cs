@@ -25,6 +25,7 @@ namespace Dane
         private IReadOnlyDictionary<BallAbstract, int> BallsIdDict { get; }
         private IDictionary<int, ulong> IdOffsetDict { get; }
 
+
         private void WriteData()
         {
             lock (DataToWrite)
@@ -38,14 +39,8 @@ namespace Dane
                 ulong offset;
                 IdOffsetDict.TryGetValue(ballId, out offset);
 
-                string subdirectory = _fileName + ballId;
-                if (!Directory.Exists(_directory + "\\" + subdirectory))
-                {
-                    Directory.CreateDirectory(_directory + "\\" + subdirectory);
-                }
-
-                string fullPath = _directory + "\\" + subdirectory + "\\" + _fileName + offset + ".json";
-                File.WriteAllText(fullPath, record.Data);
+                string fullPath = _directory + "\\" + _fileName + ".json";
+                File.AppendAllText(fullPath, ballId + record.Data);
                 IdOffsetDict.Remove(ballId);
                 IdOffsetDict.Add(ballId, offset + 1);
             }

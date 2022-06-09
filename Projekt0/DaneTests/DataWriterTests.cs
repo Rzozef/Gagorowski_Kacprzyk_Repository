@@ -26,6 +26,6 @@ public class DataWriterTests
         balls.Add(api.CreateBall());
         balls.Add(api.CreateBall());
         writer.WriteBallsPosition("testData", balls[0]);
-        Assert.IsNotEmpty(Directory.GetCurrentDirectory() + "/testDirectory" + "/testFile0");
+        Assert.IsNotEmpty(Directory.GetCurrentDirectory() + "/testDirectory" + "/testFile");
     }
 }

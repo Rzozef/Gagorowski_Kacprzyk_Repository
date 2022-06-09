@@ -25,15 +25,15 @@ public class DaneApiTests
     public void CreateBallsTests()
     {
         BallAbstract ball = api.CreateBall();
-        Assert.Greater(ball.Size, 5);
+        Assert.GreaterOrEqual(ball.Size, 5);
         Assert.Less(ball.Size, 20);
-        Assert.Greater(ball.Position.X, 0);
+        Assert.GreaterOrEqual(ball.Position.X, 0);
         Assert.Less(ball.Position.X, 200 - ball.Size);
-        Assert.Greater(ball.Position.Y, 0);
+        Assert.GreaterOrEqual(ball.Position.Y, 0);
         Assert.Less(ball.Position.Y, 200 - ball.Size);
-        Assert.Greater(ball.Speed.X, -3.01);
+        Assert.GreaterOrEqual(ball.Speed.X, -3);
         Assert.Less(ball.Speed.X, 3);
-        Assert.Greater(ball.Speed.Y, -3.01);
+        Assert.GreaterOrEqual(ball.Speed.Y, -3);
         Assert.Less(ball.Speed.Y, 3);
     }
 }
