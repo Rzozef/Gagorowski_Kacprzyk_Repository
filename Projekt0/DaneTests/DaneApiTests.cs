@@ -15,13 +15,6 @@ public class DaneApiTests
     }
 
     [Test]
-    public void CreateApiTests()
-    {
-        Assert.AreEqual(api.Width, test_width);
-        Assert.AreEqual(api.Height, test_height);
-    }
-    
-    [Test]
     public void CreateBallsTests()
     {
         BallAbstract ball = api.CreateBall();

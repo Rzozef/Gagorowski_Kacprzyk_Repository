@@ -18,7 +18,7 @@ public class BallTests
     public void Setup()
     {
         dane = DaneAbstractApi.CreateApi(200, 200);
-        test_ball = BallAbstract.CreateBall(test_x, test_y, test_size, test_mass, new Vector2(5, 5), dane);
+        test_ball = BallAbstract.CreateBall(test_x, test_y, test_size, test_mass, new Vector2(5, 5));
     }
 
     [Test]
