@@ -14,8 +14,7 @@ namespace Dane
             {
                 throw new ArgumentNullException();
             }
-            _fileName = fileName;
-            _directory = Directory.GetCurrentDirectory() + "\\" + subdir;
+            string _directory = Directory.GetCurrentDirectory() + "\\" + subdir;
 
             if (Directory.Exists(_directory))
             {
@@ -23,14 +22,12 @@ namespace Dane
             }
             Directory.CreateDirectory(_directory);
 
-            string fullPath = _directory + "\\" + _fileName + ".json";
-            lock (_lock)
-            {
-                File.WriteAllText(fullPath, "[]");
-            }
+            file = _directory + "\\" + fileName + ".json";
+            File.WriteAllText(file, "[]");
 
             DataToWrite = new ConcurrentQueue<BallRecord>();
             _first = true;
+            Task.Factory.StartNew(Writer);
         }
         private static readonly object _lock = new object();
         private static DataWriter? _instance = null;
@@ -49,8 +46,7 @@ namespace Dane
             }
         }
 
-        private string _directory { get; }
-        private string _fileName { get; }
+        private string file { get; set; }
         private bool _first { get; set; }
         private ConcurrentQueue<BallRecord> DataToWrite { get; set; }
 
@@ -58,39 +54,38 @@ namespace Dane
         private void WriteData()
         {
             BallRecord record;
-            DataToWrite.TryDequeue(out record);
+            while (!DataToWrite.TryDequeue(out record)) { }
 
-            //int ballId;
-            //BallsIdDict.TryGetValue(record.Ball, out ballId);
-
-            //ulong offset;
-            //IdOffsetDict.TryGetValue(ballId, out offset);
-
-            string fullPath = _directory + "\\" + _fileName + ".json";
-            lock (_lock)
+            FileStream fs = new FileStream(file, FileMode.Open, FileAccess.ReadWrite);
+            fs.SetLength(fs.Length - 1);
+            fs.Close();
+            if (!_first)
             {
-                FileStream fs = new FileStream(fullPath, FileMode.Open, FileAccess.ReadWrite);
-                fs.SetLength(fs.Length - 1);
-                fs.Close();
-                if (!_first)
-                {
-                    File.AppendAllText(fullPath, "," + record.SerializedData + "]");
-                }
-                else
-                {
-                    File.AppendAllText(fullPath, record.SerializedData + "]");
-                    _first = false;
-                }
+                File.AppendAllText(file, "," + record.SerializedData + "]");
             }
-            //IdOffsetDict.Remove(ballId);
-            //IdOffsetDict.Add(ballId, offset + 1);
+            else
+            {
+                File.AppendAllText(file, record.SerializedData + "]");
+                _first = false;
+            }
         }
+
+        private async void Writer()
+        {
+            while (true)
+            {
+                while (!DataToWrite.IsEmpty)
+                {
+                    WriteData();
+                }
+
+                await Task.Delay(1000);
+            }
+        }
+
         public async void WriteBallPosition(BallAbstract ball, DateTime time)
         {
             DataToWrite.Enqueue(new BallRecord(ball, time));
-            Task.Factory.StartNew(
-                WriteData
-                );
         }
     }
 }
